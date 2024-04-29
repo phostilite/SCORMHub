@@ -1,0 +1,143 @@
+<nav
+  class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600"
+>
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+  >
+    <a
+      href="{% url 'scorm-dashboard' %}"
+      class="flex items-center space-x-3 rtl:space-x-reverse"
+    >
+      <span
+        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+        >NuggetKrafters</span
+      >
+    </a>
+    <div
+      class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
+    >
+    <div class="mr-2"><p> Admin: {{ request.user.first_name }} {{ request.user.last_name }}</p></div>
+      <button
+        type="button"
+        class="flex text-sm bg-white-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+        id="user-menu-button"
+        aria-expanded="false"
+        data-dropdown-toggle="user-dropdown"
+        data-dropdown-placement="bottom"
+      >
+        <span class="sr-only">Open user menu</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+        >
+          <path
+            d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 10 A 1 1 0 0 0 24 11 A 1 1 0 0 0 25 12 A 1 1 0 0 0 26 11 A 1 1 0 0 0 25 10 z M 21 11 A 1 1 0 0 0 20 12 A 1 1 0 0 0 21 13 A 1 1 0 0 0 22 12 A 1 1 0 0 0 21 11 z M 29 11 A 1 1 0 0 0 28 12 A 1 1 0 0 0 29 13 A 1 1 0 0 0 30 12 A 1 1 0 0 0 29 11 z M 18 14 A 1 1 0 0 0 17 15 A 1 1 0 0 0 18 16 A 1 1 0 0 0 19 15 A 1 1 0 0 0 18 14 z M 32 14 A 1 1 0 0 0 31 15 A 1 1 0 0 0 32 16 A 1 1 0 0 0 33 15 A 1 1 0 0 0 32 14 z M 17 18 A 1 1 0 0 0 16 19 A 1 1 0 0 0 17 20 A 1 1 0 0 0 18 19 A 1 1 0 0 0 17 18 z M 33 18 A 1 1 0 0 0 32 19 A 1 1 0 0 0 33 20 A 1 1 0 0 0 34 19 A 1 1 0 0 0 33 18 z M 18 22 A 1 1 0 0 0 17 23 A 1 1 0 0 0 18 24 A 1 1 0 0 0 19 23 A 1 1 0 0 0 18 22 z M 32 22 A 1 1 0 0 0 31 23 A 1 1 0 0 0 32 24 A 1 1 0 0 0 33 23 A 1 1 0 0 0 32 22 z M 21 25 A 1 1 0 0 0 20 26 A 1 1 0 0 0 21 27 A 1 1 0 0 0 22 26 A 1 1 0 0 0 21 25 z M 29 25 A 1 1 0 0 0 28 26 A 1 1 0 0 0 29 27 A 1 1 0 0 0 30 26 A 1 1 0 0 0 29 25 z M 25 26 A 1 1 0 0 0 24 27 A 1 1 0 0 0 25 28 A 1 1 0 0 0 26 27 A 1 1 0 0 0 25 26 z M 19 28 A 1 1 0 0 0 18 29 A 1 1 0 0 0 19 30 A 1 1 0 0 0 20 29 A 1 1 0 0 0 19 28 z M 31 28 A 1 1 0 0 0 30 29 A 1 1 0 0 0 31 30 A 1 1 0 0 0 32 29 A 1 1 0 0 0 31 28 z M 15.75 29.873047 C 15.4975 29.835547 15.229766 29.895547 15.009766 30.060547 L 15 30.050781 C 14.56 30.380781 14.459062 31.009219 14.789062 31.449219 C 14.989063 31.719219 15.289609 31.859375 15.599609 31.859375 C 15.799609 31.859375 16.009453 31.799922 16.189453 31.669922 C 16.629453 31.339922 16.730391 30.709531 16.400391 30.269531 C 16.240391 30.044531 16.0025 29.910547 15.75 29.873047 z M 34.25 29.873047 C 33.997375 29.910547 33.759609 30.044531 33.599609 30.269531 C 33.269609 30.719531 33.371547 31.339922 33.810547 31.669922 C 33.990547 31.799922 34.200391 31.858375 34.400391 31.859375 C 34.711391 31.859375 35.010937 31.721172 35.210938 31.451172 C 35.540937 31.010172 35.439234 30.380547 34.990234 30.060547 C 34.769734 29.895547 34.502625 29.835547 34.25 29.873047 z M 12.679688 32.576172 C 12.425938 32.610047 12.184531 32.740938 12.019531 32.960938 C 11.688531 33.399937 11.770938 34.030375 12.210938 34.359375 C 12.390937 34.500375 12.599359 34.568359 12.818359 34.568359 C 13.119359 34.568359 13.420375 34.429922 13.609375 34.169922 C 13.950375 33.729922 13.858922 33.109531 13.419922 32.769531 C 13.199922 32.604031 12.933437 32.542297 12.679688 32.576172 z M 37.320312 32.576172 C 37.066688 32.542422 36.799578 32.604531 36.580078 32.769531 C 36.140078 33.099531 36.050625 33.729922 36.390625 34.169922 C 36.580625 34.429922 36.879688 34.568359 37.179688 34.568359 C 37.389688 34.568359 37.608063 34.500375 37.789062 34.359375 C 38.228062 34.030375 38.308516 33.399938 37.978516 32.960938 C 37.813516 32.740938 37.573937 32.609922 37.320312 32.576172 z M 11 36 A 1 1 0 0 0 10 37 A 1 1 0 0 0 11 38 A 1 1 0 0 0 12 37 A 1 1 0 0 0 11 36 z M 39 36 A 1 1 0 0 0 38 37 A 1 1 0 0 0 39 38 A 1 1 0 0 0 40 37 A 1 1 0 0 0 39 36 z"
+          ></path>
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div
+        class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+        id="user-dropdown"
+      >
+        <div class="px-4 py-3">
+          <span class="block text-sm text-gray-900 dark:text-white"
+            >{{ request.user.first_name }} {{ request.user.last_name }}</span
+          >
+          <span class="block text-sm text-gray-500 truncate dark:text-gray-400"
+            >{{ request.user.email }}</span
+          >
+        </div>
+        <ul class="py-2" aria-labelledby="user-menu-button">
+          <li>
+            <a
+              href="{% url 'scorm-dashboard' %}"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Dashboard</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Settings</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Earnings</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'admin-logout' %}"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Sign out</a
+            >
+          </li>
+        </ul>
+      </div>
+      <button
+        data-collapse-toggle="navbar-user"
+        type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-user"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+      id="navbar-user"
+    >
+      <ul
+        class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+      >
+        <li id="scorm-nav">
+          <a
+            href="{% url 'scorm-dashboard' %}"
+            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 default-class"
+            aria-current="page"
+            >SCORM</a
+          >
+        </li>
+        <li id="client-nav">
+          <a
+            href="{% url 'client-dashboard' %}"
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 default-class"
+            >Clients</a
+          >
+        </li>
+        <li id="user-nav">
+          <a
+            href="#"
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 default-class"
+            >Reports</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

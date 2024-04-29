@@ -1,0 +1,438 @@
+{% extends 'coreadmin/base.html' %} 
+{% block title %}Create Dashboard{% endblock %} 
+{% block content %}
+
+<div
+  class="relative overflow-x-auto shadow-md sm:rounded-lg mt-32 mx-auto max-w-screen-xl"
+>
+  <div
+    class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900"
+  >
+    <div>
+      <button
+        id="dropdownActionButton"
+        data-dropdown-toggle="dropdownAction"
+        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+        type="button"
+      >
+        <span class="sr-only">Action button</span>
+        Action
+        <svg
+          class="w-2.5 h-2.5 ms-2.5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 4 4 4-4"
+          />
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div
+        id="dropdownAction"
+        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+      >
+        <ul
+          class="py-1 text-sm text-gray-700 dark:text-gray-200"
+          aria-labelledby="dropdownActionButton"
+        >
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Reward</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Promote</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >Activate account</a
+            >
+          </li>
+        </ul>
+        <div class="py-1">
+          <a
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            >Delete User</a
+          >
+        </div>
+      </div>
+    </div>
+    <label for="table-search" class="sr-only">Search</label>
+    <div class="relative">
+      <div
+        class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none"
+      >
+        <svg
+          class="w-4 h-4 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        type="text"
+        id="table-search-users"
+        class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search for clients"
+      />
+    </div>
+    <div class="relative">
+      <a href="{% url 'create-client' %}">
+        <button
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Create Client
+        </button>
+      </a>
+    </div>
+  </div>
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="p-4">
+          <div class="flex items-center">
+            <input
+              id="checkbox-all-search"
+              type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+          </div>
+        </th>
+        <th scope="col" class="px-6 py-3">Name</th>
+        <th scope="col" class="px-6 py-3">Company</th>
+        <th scope="col" class="px-6 py-3">Phone</th>
+        <th scope="col" class="px-6 py-3">Created At</th>
+        <th scope="col" class="px-6 py-3">Scorm Count</th>
+        <th scope="col" class="px-6 py-3">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in clients %}
+      <tr
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+      >
+        <td class="w-4 p-4">
+          <div class="flex items-center">
+            <input
+              id="checkbox-table-search-1"
+              type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="checkbox-table-search-1" class="sr-only"
+              >checkbox</label
+            >
+          </div>
+        </td>
+        <th
+          scope="row"
+          class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="50"
+            height="50"
+            viewBox="0 0 50 50"
+          >
+            <path
+              d="M 25 2.0078125 C 12.309287 2.0078123 2 12.317109 2 25.007812 C 2 37.698516 12.309287 48.007813 25 48.007812 C 37.690712 48.007812 48 37.698516 48 25.007812 C 48 12.317109 37.690712 2.0078125 25 2.0078125 z M 25 4.0078125 C 36.609833 4.0078125 46 13.397987 46 25.007812 C 46 30.74051 43.703998 35.925856 39.988281 39.712891 C 38.158498 38.369571 35.928049 37.69558 34.039062 37.023438 C 32.975192 36.644889 32.018651 36.269758 31.320312 35.851562 C 30.651504 35.451051 30.280089 35.039466 30.083984 34.566406 C 29.992134 33.419545 30.010738 32.496253 30.017578 31.40625 C 30.13873 31.285594 30.294155 31.200823 30.417969 31.054688 C 30.709957 30.710058 31.007253 30.29128 31.291016 29.820312 C 31.777604 29.012711 32.131673 28.024913 32.330078 27.023438 C 32.63305 26.869 32.956699 26.835578 33.203125 26.521484 C 33.658098 25.941577 33.965233 25.125482 34.101562 23.988281 C 34.222454 22.984232 33.898957 22.29366 33.482422 21.763672 C 33.930529 20.298851 34.48532 17.969341 34.296875 15.558594 C 34.193203 14.232292 33.859467 12.897267 33.056641 11.787109 C 32.290173 10.727229 31.045786 9.9653642 29.453125 9.6894531 C 28.441568 8.5409775 26.834704 8 24.914062 8 L 24.904297 8 L 24.896484 8 C 20.593741 8.078993 17.817552 9.8598398 16.628906 12.576172 C 15.498615 15.159149 15.741603 18.37477 16.552734 21.722656 C 16.116708 22.25268 15.775146 22.95643 15.898438 23.988281 C 16.035282 25.125098 16.34224 25.94153 16.796875 26.521484 C 17.043118 26.835604 17.366808 26.868911 17.669922 27.023438 C 17.868296 28.024134 18.222437 29.01059 18.708984 29.818359 C 18.992747 30.289465 19.289737 30.707821 19.582031 31.052734 C 19.705876 31.198874 19.861128 31.285522 19.982422 31.40625 C 19.988922 32.49568 20.007396 33.418614 19.916016 34.566406 C 19.720294 35.037723 19.34937 35.449526 18.681641 35.851562 C 17.984409 36.271364 17.029015 36.648577 15.966797 37.029297 C 14.079805 37.705631 11.85061 38.384459 10.015625 39.716797 C 6.2976309 35.929423 4 30.742497 4 25.007812 C 4 13.397987 13.390167 4.0078123 25 4.0078125 z M 24.921875 10.001953 C 26.766001 10.003853 27.92628 10.549863 28.244141 11.107422 L 28.488281 11.535156 L 28.974609 11.601562 C 30.230788 11.776108 30.932655 12.263579 31.435547 12.958984 C 31.938439 13.654389 32.217535 14.624895 32.302734 15.714844 C 32.473134 17.894741 31.849129 20.468905 31.453125 21.660156 L 31.201172 22.416016 L 31.882812 22.830078 C 31.813472 22.787858 32.203297 23.018609 32.115234 23.75 C 32.008564 24.639799 31.781184 25.093017 31.628906 25.287109 C 31.476629 25.481202 31.411442 25.45641 31.427734 25.455078 L 30.603516 25.523438 L 30.515625 26.345703 C 30.440195 27.052169 30.04285 28.015793 29.578125 28.787109 C 29.345762 29.172767 29.098543 29.516317 28.890625 29.761719 C 28.682707 30.00712 28.461282 30.159117 28.544922 30.115234 L 28.009766 30.394531 L 28.009766 31 C 28.009766 32.324321 27.955813 33.407291 28.095703 34.949219 L 28.107422 35.082031 L 28.154297 35.207031 C 28.547829 36.266071 29.369275 37.013258 30.292969 37.566406 C 31.216662 38.119555 32.276387 38.519377 33.369141 38.908203 C 35.170096 39.549023 37.047465 40.179657 38.478516 41.111328 C 34.832229 44.165449 30.13557 46.007812 25 46.007812 C 19.866418 46.007813 15.171082 44.167232 11.525391 41.115234 C 12.964568 40.188909 14.844735 39.556492 16.642578 38.912109 C 17.73461 38.520704 18.79156 38.119183 19.712891 37.564453 C 20.634221 37.009723 21.452728 36.262662 21.845703 35.207031 L 21.892578 35.082031 L 21.904297 34.949219 C 22.043042 33.408482 21.990234 32.325309 21.990234 31 L 21.990234 30.394531 L 21.455078 30.113281 C 21.538828 30.157091 21.317362 30.005196 21.109375 29.759766 C 20.901388 29.514336 20.654237 29.172879 20.421875 28.787109 C 19.957151 28.015571 19.559775 27.05118 19.484375 26.345703 L 19.396484 25.523438 L 18.572266 25.455078 C 18.587716 25.456378 18.523206 25.481158 18.371094 25.287109 C 18.218979 25.093064 17.991921 24.640183 17.884766 23.75 C 17.797356 23.01846 18.191557 22.784891 18.117188 22.830078 L 18.751953 22.445312 L 18.566406 21.724609 C 17.705952 18.412902 17.575833 15.399621 18.460938 13.376953 C 19.345167 11.356284 21.116417 10.074289 24.921875 10.001953 z"
+            ></path>
+          </svg>
+          <div class="ps-3">
+            <div class="text-base font-semibold">
+              {{ client.first_name }} {{ client.last_name }}
+            </div>
+            <div class="font-normal text-gray-500">{{ client.email }}</div>
+          </div>
+        </th>
+        <td class="px-6 py-4">{{ client.company }}</td>
+        <td class="px-6 py-4">{{ client.contact_phone }}</td>
+        <td class="px-6 py-4">{{ client.created_at }}</td>
+        <td class="px-6 py-4">
+          {{ client.scorm_assignment_count }}
+        </td>
+        <td class="px-6 py-4 flex items-center space-x-2">
+          <a
+            href="#"
+            type="button"
+            data-client-id="{{ client.id }}"
+            data-modal-target="editUserModal"
+            data-modal-show="editUserModal"
+            class="font-medium text-blue-600 dark:text-blue-500 hover:underline edit-client-link"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="32"
+              height="32"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M 399.37891 56.253906 A 45 45 0 0 0 368.2168 69.429688 L 189.80859 247.83789 A 10 10 0 0 0 187.24414 252.23633 L 163.78125 336.9375 A 10 10 0 0 0 176.08789 349.24414 L 260.78711 325.78125 A 10 10 0 0 0 265.1875 323.21484 L 443.5918 144.80469 A 45.052 45.052 0 0 0 443.5918 81.164062 L 431.85547 69.429688 A 45 45 0 0 0 399.37891 56.253906 z M 400.40234 76.25 A 25 25 0 0 1 417.71484 83.570312 L 429.44922 95.306641 A 25.029 25.029 0 0 1 429.44922 130.66211 L 418.84375 141.26758 L 371.75391 94.177734 L 382.35938 83.570312 A 25 25 0 0 1 400.40234 76.25 z M 105.22852 95.160156 A 50.057 50.057 0 0 0 55.228516 145.16016 L 55.228516 405.75195 A 50.057 50.057 0 0 0 105.22852 455.75195 L 385.81836 455.75195 A 50.057 50.057 0 0 0 435.81836 405.75195 L 435.81836 316.96094 A 10 10 0 0 0 425.81836 306.96094 A 10 10 0 0 0 415.81836 316.96094 L 415.81836 405.75195 A 30.034 30.034 0 0 1 385.81836 435.75195 L 105.22852 435.75195 A 30.034 30.034 0 0 1 75.228516 405.75195 L 75.228516 145.16016 A 30.034 30.034 0 0 1 105.22852 115.16016 L 194.01953 115.16016 A 10 10 0 0 0 194.01953 95.160156 L 105.22852 95.160156 z M 357.60938 108.32031 L 404.69922 155.41016 L 258.68555 301.42773 L 211.59961 254.33594 L 357.60938 108.32031 z M 202.19141 273.21289 L 239.81445 310.83594 L 187.77539 325.25195 L 202.19141 273.21289 z"
+              ></path>
+            </svg>
+          </a>
+          <a href="{% url 'client-details' client.id %}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="32"
+              height="32"
+              viewBox="0 0 50 50"
+            >
+              <path
+                d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 41 6 C 42.668484 6 44 7.3315161 44 9 L 44 41 C 44 42.668484 42.668484 44 41 44 L 9 44 C 7.3315161 44 6 42.668484 6 41 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 23.429688 9 A 1.0001 1.0001 0 0 0 22.449219 9.8066406 L 21.603516 14.107422 C 20.891022 14.330715 20.22708 14.608165 19.615234 14.941406 L 15.966797 12.548828 A 1.0001 1.0001 0 0 0 14.710938 12.679688 L 12.589844 14.806641 A 1.0001 1.0001 0 0 0 12.460938 16.058594 L 14.847656 19.716797 C 14.51555 20.329946 14.238789 20.995905 14.015625 21.708984 L 9.8183594 22.480469 A 1.0001 1.0001 0 0 0 9 23.464844 L 9 26.455078 A 1.0001 1.0001 0 0 0 9.8066406 27.4375 L 14.09375 28.283203 C 14.316845 28.999283 14.594012 29.667836 14.927734 30.283203 L 12.541016 33.941406 A 1.0001 1.0001 0 0 0 12.669922 35.193359 L 14.791016 37.318359 A 1.0001 1.0001 0 0 0 16.046875 37.449219 L 19.695312 35.056641 C 20.307243 35.389812 20.971128 35.669249 21.683594 35.892578 L 22.527344 40.191406 A 1.0001 1.0001 0 0 0 23.507812 41 L 26.492188 41 A 1.0001 1.0001 0 0 0 27.472656 40.193359 L 28.318359 35.892578 C 29.030853 35.669285 29.694795 35.391835 30.306641 35.058594 L 33.955078 37.451172 A 1.0001 1.0001 0 0 0 35.210938 37.320312 L 37.332031 35.193359 A 1.0001 1.0001 0 0 0 37.460938 33.941406 L 35.074219 30.283203 C 35.407549 29.667793 35.684806 28.999393 35.908203 28.283203 L 40.193359 27.4375 A 1.0001 1.0001 0 0 0 41 26.457031 L 41 23.464844 A 1.0001 1.0001 0 0 0 40 22.464844 L 39.947266 22.464844 L 35.748047 21.636719 C 35.525156 20.921341 35.249361 20.253506 34.916016 19.638672 L 37.302734 15.978516 A 1.0001 1.0001 0 0 0 37.173828 14.726562 L 35.052734 12.601562 A 1.0001 1.0001 0 0 0 33.794922 12.470703 L 30.146484 14.863281 C 29.536703 14.531297 28.875521 14.254329 28.166016 14.03125 L 27.398438 9.8203125 A 1.0001 1.0001 0 0 0 26.414062 9 L 23.429688 9 z M 24.251953 11 L 25.580078 11 L 26.292969 14.904297 A 1.0001 1.0001 0 0 0 27.066406 15.701172 C 28.012821 15.904221 28.847821 16.317085 29.755859 16.847656 A 1.0001 1.0001 0 0 0 30.808594 16.820312 L 34.210938 14.589844 L 35.185547 15.566406 L 32.957031 18.980469 A 1.0001 1.0001 0 0 0 32.931641 20.029297 C 33.460965 20.938772 33.871861 21.779586 34.074219 22.728516 A 1.0001 1.0001 0 0 0 34.859375 23.5 L 39 24.316406 L 39 25.634766 L 35.017578 26.421875 A 1.0001 1.0001 0 0 0 34.232422 27.193359 C 34.029081 28.142859 33.618442 28.982696 33.089844 29.892578 A 1.0001 1.0001 0 0 0 33.117188 30.939453 L 35.34375 34.355469 L 34.371094 35.332031 L 30.966797 33.101562 A 1.0001 1.0001 0 0 0 29.914062 33.074219 C 29.007565 33.604453 28.171146 34.015675 27.224609 34.21875 A 1.0001 1.0001 0 0 0 26.453125 35.003906 L 25.669922 39 L 24.332031 39 L 23.548828 35.003906 A 1.0001 1.0001 0 0 0 22.777344 34.21875 C 21.830929 34.015701 20.995929 33.602837 20.087891 33.072266 A 1.0001 1.0001 0 0 0 19.035156 33.099609 L 15.630859 35.330078 L 14.658203 34.353516 L 16.884766 30.939453 A 1.0001 1.0001 0 0 0 16.912109 29.890625 C 16.382788 28.981153 15.971889 28.142289 15.769531 27.193359 A 1.0001 1.0001 0 0 0 14.984375 26.419922 L 11 25.634766 L 11 24.296875 L 14.892578 23.582031 A 1.0001 1.0001 0 0 0 15.689453 22.806641 C 15.892794 21.857141 16.303433 21.017304 16.832031 20.107422 A 1.0001 1.0001 0 0 0 16.804688 19.060547 L 14.578125 15.644531 L 15.552734 14.667969 L 18.955078 16.898438 A 1.0001 1.0001 0 0 0 20.007812 16.925781 C 20.91431 16.395547 21.750729 15.984325 22.697266 15.78125 A 1.0001 1.0001 0 0 0 23.46875 14.996094 L 24.251953 11 z M 25 19 C 21.704545 19 19 21.704545 19 25 C 19 28.295455 21.704545 31 25 31 C 28.295455 31 31 28.295455 31 25 C 31 21.704545 28.295455 19 25 19 z M 25 21 C 27.204545 21 29 22.795455 29 25 C 29 27.204545 27.204545 29 25 29 C 22.795455 29 21 27.204545 21 25 C 21 22.795455 22.795455 21 25 21 z"
+              ></path>
+            </svg>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Edit user modal -->
+  <div
+    id="editUserModal"
+    tabindex="-1"
+    aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+  >
+    <div class="relative w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <form
+        class="relative bg-white rounded-lg shadow dark:bg-gray-700"
+        id="clientUpdateForm"
+        method="post"
+      >
+        {% csrf_token %}
+        <!-- Modal header -->
+        <div
+          class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600"
+        >
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Edit user
+          </h3>
+          <button
+            type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="editUserModal"
+          >
+            <svg
+              class="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+          <div class="grid grid-cols-6 gap-6">
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="id_first_name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >First Name</label
+              >
+              <input
+                type="text"
+                name="first_name"
+                id="id_first_name"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Bonnie"
+                required=""
+              />
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="id_last_name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                name="last_name"
+                id="id_last_name"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Green"
+                required=""
+              />
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="id_email"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Email</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="id_email"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="example@company.com"
+                required=""
+              />
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="id_contact_phone"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Phone Number</label
+              >
+              <input
+                type="text"
+                name="contact_phone"
+                id="id_contact_phone"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="e.g. +(12)3456 789"
+                required=""
+              />
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="id_company"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Company</label
+              >
+              <input
+                type="text"
+                name="company"
+                id="id_company"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder=""
+                required=""
+              />
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="id_domains"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Domains</label
+              >
+              <input
+                type="text"
+                name="domains"
+                id="id_domains"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder=""
+                required=""
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div
+          class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600"
+        >
+          <button
+            type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Save all
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".edit-client-link").click(function (event) {
+    event.preventDefault();
+    var clientId = $(this).data("clientId");
+
+    $.ajax({
+      url: "/coreadmin/get_client_details/" + clientId + "/",
+      dataType: "json",
+      success: function (data) {
+        $("#id_first_name").val(data.first_name);
+        $("#id_last_name").val(data.last_name);
+        $("#id_email").val(data.email);
+        $("#id_contact_phone").val(data.contact_phone);
+        $("#id_company").val(data.company);
+        $("#id_domains").val(data.domains);
+        $("#clientUpdateForm").data("clientId", clientId);
+        $("#editClientModal").modal("show");
+      },
+    });
+  });
+
+  $("#clientUpdateForm").submit(function (event) {
+    event.preventDefault();
+    var formData = $(this).serialize();
+    var clientId = $(this).data("clientId");
+
+    $.ajax({
+      url: "/coreadmin/update_client/" + clientId + "/",
+      type: "POST",
+      data: formData,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(
+          "X-CSRFToken",
+          $("input[name=csrfmiddlewaretoken]").val()
+        );
+      },
+      success: function (data) {
+        if (data.success) {
+          var modal = document.querySelector("#editUserModal");
+          modal.classList.add("hidden");
+          modal.setAttribute("aria-hidden", "true");
+
+          alert("Client updated successfully!");
+          location.reload();
+        } else {
+          var errors = data.errors;
+          for (var field in errors) {
+            var errorMessages = errors[field];
+            alert("Error in " + field + ": " + errorMessages.join(", "));
+          }
+        }
+      },
+    });
+  });
+</script>
+{% endblock %}
