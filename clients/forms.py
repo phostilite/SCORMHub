@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import Group
+from scorm.models import ScormAsset, ScormAssignment
 
 from accounts.models import CustomUser
 
@@ -26,6 +27,9 @@ class ClientCreationForm(forms.ModelForm):
             "contact_phone",
             "company",
             "domains",
+            "lms_url",
+            "lms_api_key",
+            "lms_api_secret",
         ]
 
     def clean(self):
@@ -74,3 +78,17 @@ class ClientUpdateForm(forms.ModelForm):
 class ClientLoginForm(forms.Form):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
+    
+
+class ClientUserForm(forms.Form):
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
+    scorm = forms.ModelChoiceField(queryset=ScormAsset.objects.none())  # Empty initial queryset
+
+    def __init__(self, *args, **kwargs):
+        client = kwargs.pop('client', None)
+        super(ClientUserForm, self).__init__(*args, **kwargs)
+        if client:
+            # Get the ScormAsset objects that are assigned to the client
+            assigned_scorms = ScormAssignment.objects.filter(client=client).values_list('scorm_asset', flat=True)
+            self.fields['scorm'].queryset = ScormAsset.objects.filter(id__in=assigned_scorms)

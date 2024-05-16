@@ -65,18 +65,13 @@ def validate_and_launch(request):
         * 400 Bad Request: Missing required data, invalid client identifier, invalid referring domain, invalid license.
         * 500 Internal Server Error: Failed to generate launch URL.
     """
-    
-    logger.info('Starting validate_and_launch')
-    
+        
     # Get the encrypted ID, referring URL, and learner ID from the request data
     encrypted_id = request.data.get("id")
     referring_url = request.data.get("referringurl")
     learner_id = request.data.get("learner_id")
     learner_name = request.data.get("name")
     
-    logger.info(f'Received data: {encrypted_id}, {referring_url}, {learner_id}, {learner_name}')
-
-
     # Check if the required data is present
     if not all([encrypted_id, referring_url, learner_id, learner_name]):
         logger.error('Missing required data')
@@ -88,8 +83,6 @@ def validate_and_launch(request):
     # Split the decrypted ID to get the client ID and the SCORM ID
     client_id, scorm_id = decrypted_id.split("-")
     
-    logger.info(f'Decrypted ID: {client_id}, {scorm_id}')
-
     # Get the client
     try:
         client = Client.objects.get(id=client_id)
@@ -100,8 +93,6 @@ def validate_and_launch(request):
     # Get the domain of the referring URL
     referring_domain = referring_url
     
-    logger.info(f'Referring domain: {referring_domain}')
-
     # Get the list of valid domains for the client
     valid_domains = client.domains.split(",")
 
@@ -124,7 +115,6 @@ def validate_and_launch(request):
     client_user, _ = ClientUser.objects.get_or_create(
         learner_id=learner_id, client=client, defaults={"first_name": learner_name}
     )
-    logger.info(f"ClientUser: {client_user}")
 
     # CloudScorm Sync
     bearer_token = settings.API_TOKEN1
@@ -133,24 +123,22 @@ def validate_and_launch(request):
         logger.info(f'CloudScorm User Data: {cloudscorm_user_data}')
         client_user.cloudscorm_user_id = cloudscorm_user_data["user_id"]
         client_user.save()
-     
+        
     scorm_asset = get_object_or_404(ScormAsset, scorm_id=scorm_id)
     assignment = get_object_or_404(ScormAssignment, scorm_asset=scorm_asset)
 
-    # Create a UserScormMapping   
+    # Create a UserScormMapping  
     UserScormMapping.objects.get_or_create(
         user=client_user, 
         assignment=assignment
     )
-    logger.info(f"UserScormMapping created for user: {client_user}")
 
     # Construct the launch URL
     launch_url = construct_launch_url(scorm_id, client_user.cloudscorm_user_id)
-    logger.info(f"Launch URL: {launch_url}")
 
     # Return the launch URL
     if launch_url:
-        return JsonResponse({"launch_url": launch_url})
+        return JsonResponse({"launch_url": launch_url, "cloudscorm_user_id": client_user.cloudscorm_user_id})
     else:
         logger.info("Failed to generate launch URL")
         return JsonResponse({"error": "Failed to generate launch URL"}, status=500)

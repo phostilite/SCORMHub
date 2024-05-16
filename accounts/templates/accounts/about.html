@@ -1,0 +1,371 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Navbar Start -->
+    <nav
+      class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn"
+      data-wow-delay="0.1s"
+    >
+      <a href="" class="navbar-brand m-0 p-0">
+        <h1 class="fw-bold text-primary m-0"></h1>
+        <img src="{% static 'img/logo.svg' %}" alt="Logo" />
+      </a>
+      <button
+        type="button"
+        class="navbar-toggler me-3 bg-success"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav me-auto p-3 p-lg-0">
+          <a href="{% url 'landing-page' %}" class="nav-item nav-link active">Home</a>
+          <a href="{% url 'about-page' %}" class="nav-item nav-link">About Us</a>
+          <a href="#" class="nav-item nav-link">Solution</a>
+          <a href="#" class="nav-item nav-link">Courses</a>
+
+          <a href="#" class="nav-item nav-link">Contact</a>
+        </div>
+        <a
+          href="https://htmlcodex.com/web-design-agency-html-template-pro"
+          class="btn btn-sm btn-light rounded-pill py-2 px-4 d-none d-lg-block"
+          >Login</a
+        >
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+      <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="{% static 'img/img2.jpg' %}"
+              class="w-100"
+              style="height: 800px"
+              alt=""
+            />
+            <div class="carousel-caption">
+              <div class="p-3" style="max-width: 900px">
+                <h1 class="display-1 text-white mb-0 animated zoomIn">
+                  About Us
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Carousel End -->
+
+    <!-- Facts Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="fact-item bg-light rounded text-center h-100 p-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="64"
+                height="64"
+                viewBox="0,0,256,256"
+                style="fill: #4b0082"
+              >
+                <g
+                  fill="#4b0082"
+                  fill-rule="nonzero"
+                  stroke="none"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <g transform="scale(4,4)">
+                    <path
+                      d="M9,2c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM9,10c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM55,2c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM55,10c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM23,7v2h2v-2zM27,7v2h2v-2zM31,7v2h2v-2zM35,7v2h2v-2zM39,7v2h2v-2zM29,18v1.64648c0,0.443 -0.29675,0.81808 -0.71875,0.95508c-0.593,0.193 -1.16389,0.42998 -1.71289,0.70898c-0.395,0.201 -0.86959,0.14503 -1.18359,-0.16797l-1.16406,-1.16406l-4.24219,4.24414l1.16211,1.16211c0.313,0.313 0.37092,0.78859 0.16992,1.18359c-0.279,0.548 -0.51599,1.12184 -0.70898,1.71484c-0.136,0.421 -0.51208,0.7168 -0.95508,0.7168h-1.64648v6h1.64648c0.443,0 0.81808,0.29675 0.95508,0.71875c0.193,0.593 0.42998,1.16489 0.70898,1.71289c0.201,0.395 0.14503,0.86959 -0.16797,1.18359l-1.16406,1.16211l4.24414,4.24414l1.16211,-1.16406c0.313,-0.313 0.78859,-0.36897 1.18359,-0.16797c0.548,0.279 1.12089,0.51598 1.71289,0.70898c0.422,0.137 0.71875,0.51208 0.71875,0.95508v1.64648h6v-1.64648c0,-0.443 0.29675,-0.81808 0.71875,-0.95508c0.593,-0.193 1.16489,-0.42999 1.71289,-0.70898c0.395,-0.201 0.86959,-0.14503 1.18359,0.16797l1.16211,1.16406l4.24414,-4.24414l-1.16406,-1.16211c-0.313,-0.313 -0.36897,-0.78859 -0.16797,-1.18359c0.278,-0.548 0.51598,-1.11989 0.70898,-1.71289c0.137,-0.422 0.51208,-0.71875 0.95508,-0.71875h1.64648v-6h-1.64648c-0.443,0 -0.81808,-0.29675 -0.95508,-0.71875c-0.193,-0.593 -0.42999,-1.16389 -0.70898,-1.71289c-0.201,-0.395 -0.14503,-0.86959 0.16797,-1.18359l1.16406,-1.16406l-4.24414,-4.24219l-1.16211,1.16211c-0.313,0.313 -0.78859,0.37092 -1.18359,0.16992c-0.548,-0.279 -1.12184,-0.51599 -1.71484,-0.70898c-0.421,-0.136 -0.7168,-0.51208 -0.7168,-0.95508v-1.64648zM8,23v2h2v-2zM54,23v2h2v-2zM32,24c4.418,0 8,3.582 8,8c0,4.418 -3.582,8 -8,8c-4.418,0 -8,-3.582 -8,-8c0,-4.418 3.582,-8 8,-8zM8,27v2h2v-2zM54,27v2h2v-2zM30,28v8l6,-4zM8,31v2h2v-2zM54,31v2h2v-2zM8,35v2h2v-2zM54,35v2h2v-2zM8,39v2h2v-2zM54,39v2h2v-2zM9,45c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM9,53c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM55,45c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM55,53c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM23,55v2h2v-2zM27,55v2h2v-2zM31,55v2h2v-2zM35,55v2h2v-2zM39,55v2h2v-2z"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              <h1 class="display-5 mb-0">Collaborate</h1>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="fact-item bg-light rounded text-center h-100 p-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="50"
+                height="50"
+                viewBox="0,0,256,256"
+                style="fill: #4b0082"
+              >
+                <g
+                  fill="#4b0082"
+                  fill-rule="nonzero"
+                  stroke="none"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <g transform="scale(5.12,5.12)">
+                    <path
+                      d="M3.98438,2.98633c-0.55152,0.00862 -0.99193,0.46214 -0.98437,1.01367v43h31.40039h6.19922h6.40039c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-4.06836c0.04112,-0.22249 0.06836,-0.45269 0.06836,-0.69922v-20.65625c0,-0.271 0.229,-0.5 0.5,-0.5c0.271,0 0.5,0.229 0.5,0.5v8.35547c0,1.104 0.897,2 2,2c1.103,0 2,-0.896 2,-2v-11.5c0,-3.033 -2.467,-5.5 -5.5,-5.5h-10c-3.033,0 -5.5,2.467 -5.5,5.5v11.5c0,1.104 0.897,2 2,2c1.103,0 2,-0.896 2,-2v-8.5293c0,-0.271 0.229,-0.5 0.5,-0.5c0.271,0 0.5,0.229 0.5,0.5v20.83008c0,0.24653 0.02728,0.47673 0.06836,0.69922h-7.06836v-24h-6v24h-2v-17h-6v17h-2v-11h-4v-30c0.0037,-0.2703 -0.10218,-0.53059 -0.29351,-0.72155c-0.19133,-0.19097 -0.45182,-0.29634 -0.72212,-0.29212zM37.5,3c-3.033,0 -5.5,2.467 -5.5,5.5c0,3.033 2.467,5.5 5.5,5.5c3.033,0 5.5,-2.467 5.5,-5.5c0,-3.033 -2.467,-5.5 -5.5,-5.5zM37.5,33.5c0.276,0 0.5,0.224 0.5,0.5v10.5918c0.004,0.006 0.01163,0.00962 0.01563,0.01563c0.01345,0.13577 0.04346,0.26462 0.07422,0.39258h-1.18164c0.05397,-0.22333 0.0918,-0.45341 0.0918,-0.69922v-10.30078c0,-0.276 0.224,-0.5 0.5,-0.5z"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+
+              <h1 class="display-5 mb-0">Grow</h1>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="fact-item bg-light rounded text-center h-100 p-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="50"
+                height="50"
+                viewBox="0 0 50 50"
+                style="fill: #4b0082"
+              >
+                <path
+                  d="M 23 2 C 9 2 3 11.5 3 22 C 3 26.199219 4.300781 30.101563 6.5 33.300781 C 8.699219 36.5 10 40.300781 10 44.199219 L 10 49 L 32 49 L 32 44.699219 L 35.097656 44.902344 C 39.398438 45.300781 43 41.898438 43 37.597656 L 43 32.199219 L 47 30.199219 C 47.898438 29.699219 48.199219 28.597656 47.699219 27.699219 L 43 19.597656 C 41.898438 10.300781 37 2 23 2 Z M 27 8 L 29 8 L 29 10.101563 C 29.636719 10.230469 30.230469 10.484375 30.753906 10.832031 L 32.242188 9.34375 L 33.65625 10.757813 L 32.167969 12.246094 C 32.515625 12.769531 32.769531 13.363281 32.898438 14 L 35 14 L 35 16 L 32.898438 16 C 32.769531 16.636719 32.515625 17.230469 32.167969 17.753906 L 33.65625 19.242188 L 32.242188 20.65625 L 30.753906 19.167969 C 30.230469 19.515625 29.636719 19.769531 29 19.898438 L 29 22 L 27 22 L 27 19.898438 C 26.363281 19.769531 25.769531 19.515625 25.246094 19.167969 L 23.757813 20.65625 L 22.34375 19.242188 L 23.832031 17.753906 C 23.484375 17.230469 23.230469 16.636719 23.101563 16 L 21 16 L 21 14 L 23.101563 14 C 23.230469 13.363281 23.484375 12.769531 23.832031 12.246094 L 22.34375 10.757813 L 23.757813 9.34375 L 25.246094 10.832031 C 25.769531 10.484375 26.363281 10.230469 27 10.101563 Z M 28 12 C 26.34375 12 25 13.34375 25 15 C 25 16.65625 26.34375 18 28 18 C 29.65625 18 31 16.65625 31 15 C 31 13.34375 29.65625 12 28 12 Z M 15 16 L 17 16 L 17 18.101563 C 17.636719 18.230469 18.230469 18.484375 18.753906 18.832031 L 20.242188 17.34375 L 21.65625 18.757813 L 20.167969 20.246094 C 20.515625 20.769531 20.769531 21.363281 20.898438 22 L 23 22 L 23 24 L 20.898438 24 C 20.769531 24.636719 20.515625 25.230469 20.167969 25.753906 L 21.65625 27.242188 L 20.242188 28.65625 L 18.753906 27.167969 C 18.230469 27.515625 17.636719 27.769531 17 27.898438 L 17 30 L 15 30 L 15 27.898438 C 14.363281 27.769531 13.769531 27.515625 13.246094 27.167969 L 11.757813 28.65625 L 10.34375 27.242188 L 11.832031 25.753906 C 11.484375 25.230469 11.230469 24.636719 11.101563 24 L 9 24 L 9 22 L 11.101563 22 C 11.230469 21.363281 11.484375 20.769531 11.832031 20.246094 L 10.34375 18.757813 L 11.757813 17.34375 L 13.246094 18.832031 C 13.769531 18.484375 14.363281 18.230469 15 18.101563 Z M 16 20 C 14.34375 20 13 21.34375 13 23 C 13 24.65625 14.34375 26 16 26 C 17.65625 26 19 24.65625 19 23 C 19 21.34375 17.65625 20 16 20 Z"
+                ></path>
+              </svg>
+
+              <h1 class="display-5 mb-0">Learn</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Facts End -->
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="img-border">
+              <img class="img-fluid" src="{% static 'img/about.jpg' %}" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="h-100">
+              <h6 class="section-title bg-white text-start text-primary pe-3">
+                Why NuggetKrafters?
+              </h6>
+              <h2 class="display-6 mb-4">
+                NuggetKrafters <br />
+                elevates
+                <span class="text-primary">professional development </span>with:
+              </h2>
+              <p>
+                <i class="fas fa-check-circle text-primary me-2"></i>
+                <strong>Microlearning:</strong> Efficient, bite-sized modules
+                for optimal knowledge absorption.
+              </p>
+              <p class="mb-4">
+                <i class="fas fa-user-graduate text-primary me-2"></i>
+                <strong>Personalized Learning:</strong> Tailored content based
+                on learner data and preferences.
+              </p>
+              <p class="mb-4"></p>
+              <p class="mb-4">
+                <i class="fas fa-trophy text-primary me-2"></i>
+                <strong>Gamification:</strong> Motivational learning journey
+                with rewards.
+              </p>
+
+              <p class="mb-4">
+                <i class="fas fa-chart-line text-primary me-2"></i>
+                <strong>AI Insights:</strong> Comprehensive tracking and
+                performance measurement.
+              </p>
+
+              <a class="btn btn-primary rounded-pill py-3 px-5" href=""
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div
+          class="text-center mx-auto mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+          style="max-width: 600px"
+        >
+          <h6 class="section-title bg-white text-center text-primary px-3"></h6>
+          <h1 class="display-6 mb-4">
+            Power Up Your Workforce with Customized Learning Journeys
+          </h1>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <a
+              class="service-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <br />
+              <br />
+              <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">Invest in Growth</h4>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <a
+              class="service-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <!--<img
+                  class="img-fluid rounded mb-4"
+                  src="img/service-2.jpg"
+                  alt=""
+                />-->
+
+              <br />
+              <br />
+              <i class="fa fa-users-cog fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">Snackable Content</h4>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <a
+              class="service-item d-block rounded text-center h-150 p-4"
+              href=""
+            >
+              <br />
+              <br />
+              <i class="fa fa-check fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">More than 150 Courses</h4>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Service End -->
+
+    <!-- Feature Start -->
+
+    <!-- Feature End -->
+
+    <!-- pricing Start -->
+
+    <!-- Testimonial End -->
+
+    <!-- Footer Start -->
+    <div
+      class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn"
+      data-wow-delay="0.1s"
+    >
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Address</h5>
+            <p class="mb-2">
+              <i class="fa fa-map-marker-alt me-3"></i>123 Anywhere St. Any
+              City, ST 12345
+            </p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>123-456-789</p>
+            <p class="mb-2">
+              <i class="fa fa-envelope me-3"></i>info@example.com
+            </p>
+            <div class="d-flex pt-2">
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-1"
+                href=""
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-1"
+                href=""
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-1"
+                href=""
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-0"
+                href=""
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Quick Links</h5>
+            <a class="btn btn-link" href="">About Us</a>
+            <a class="btn btn-link" href="">Contact Us</a>
+            <a class="btn btn-link" href="">Our Services</a>
+            <a class="btn btn-link" href="">Terms & Condition</a>
+            <a class="btn btn-link" href="">Support</a>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Newsletter</h5>
+            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+            <div class="position-relative mx-auto" style="max-width: 400px">
+              <input
+                class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5"
+                type="text"
+                placeholder="Your email"
+              />
+              <button
+                type="button"
+                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+              >
+                SignUp
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a href="#">NuggetKrafters</a>, All Right Reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a
+      href="#"
+      class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
+      ><i class="bi bi-arrow-up"></i
+    ></a>
+
+  {% endblock %}

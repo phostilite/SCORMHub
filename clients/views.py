@@ -4,12 +4,20 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.views import View
+from django.http import JsonResponse
+from django.urls import reverse
+import requests
+import json
+from .models import ClientUser, Client
+from scorm.utils import encrypt_data, decrypt_data
+from django.core.exceptions import ObjectDoesNotExist
 
-from scorm.models import ScormAssignment
+from scorm.models import ScormAssignment, ScormAsset
 from accounts.decorators import allowed_users
 
 # from .tasks import user_logged_in_task, user_logged_out_task
-from .forms import ClientCreationForm, ClientUpdateForm, ClientLoginForm
+from .forms import ClientCreationForm, ClientUpdateForm, ClientLoginForm, ClientUserForm
 from .models import Client, ClientUser
 
 import logging
@@ -144,6 +152,9 @@ def get_client_details(request, client_id):
         "email": client.email,
         "contact_phone": client.contact_phone,
         "domains": client.domains,
+        "lms_url": client.lms_url,
+        "lms_api_key": client.lms_api_key,
+        "lms_api_secret": client.lms_api_secret,
     }
     return JsonResponse(data)
 
@@ -308,3 +319,64 @@ def users_list_for_clientadmin(request, client_id):
         return redirect(request.META.get('HTTP_REFERER', 'default_if_referer_not_found'))
 
     return render(request, "clients/users_clientadmin.html", {"users": users, "client": client})
+
+
+class ClientUserCreateView(View):
+    def get(self, request, *args, **kwargs):
+        # Get the client from the logged in user
+        client = request.user.client
+
+        # Create a new form
+        form = ClientUserForm(client=client)
+        
+        # Render the template with the form
+        return render(request, 'clients/create_clientuser_and_assign_scorm.html', {'form': form})
+    
+    def post(self, request, *args, **kwargs):        
+        # Get the client from the logged in user
+        client = request.user.client
+
+        form = ClientUserForm(request.POST, client=client)
+        if form.is_valid():
+            # Create a new ClientUser
+            client_user = ClientUser.objects.create(
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                learner_id=ClientUser.objects.count() + 1,  # Autoincrement learner_id
+                client=client
+            )
+            client_user.save()
+            
+            # Generate the id
+            encrypted_id = encrypt_data(client_user.client.id, form.cleaned_data['scorm'].scorm_id)
+
+            # Define the URL
+            url = request.build_absolute_uri(reverse('validate-and-launch'))  # Use Django's reverse function to generate the URL
+
+            # Define the headers
+            headers = {
+                'Content-Type': 'application/json'
+            }
+
+            # Define the data
+            data = {
+                "id": encrypted_id,
+                "referringurl": client_user.client.domains,
+                "learner_id": str(client_user.learner_id),
+                "name": f"{client_user.first_name} {client_user.last_name}"
+            }
+
+            # Make the POST request
+            response = requests.post(url, headers=headers, data=json.dumps(data))
+
+            if response.status_code == 200:
+                # Save the launch_url returned in the response to the ClientUser
+                client_user.launch_url = response.json()['launch_url']
+                client_user.cloudscorm_user_id = response.json()['cloudscorm_user_id']
+                client_user.save()
+
+                return JsonResponse({'message': 'Client user created successfully'}, status=201)
+            else:
+                return JsonResponse({'error': 'Failed to create client user'}, status=400)
+        else:
+            return JsonResponse({'error': form.errors}, status=400)

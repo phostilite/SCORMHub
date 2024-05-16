@@ -1,0 +1,498 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Navbar Start -->
+    <nav
+      class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn"
+      data-wow-delay="0.1s">
+      <a href class="navbar-brand m-0 p-0">
+        <h1 class="fw-bold text-primary m-0"></h1>
+        <img src="{% static 'img/logo.svg' %}" alt="Logo" />
+      </a>
+      <button
+        type="button"
+        class="navbar-toggler me-3 bg-success"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav me-auto p-3 p-lg-0">
+          <a href="{% url 'landing-page' %}" class="nav-item nav-link active">Home</a>
+          <a href="{% url 'about-page' %}" class="nav-item nav-link">About Us</a>
+          <a href="#" class="nav-item nav-link">Solution</a>
+          <a href="#" class="nav-item nav-link">Courses</a>
+
+          <a href="{% url 'contact-page' %}" class="nav-item nav-link">Contact</a>
+        </div>
+        <a
+          href="https://htmlcodex.com/web-design-agency-html-template-pro"
+          class="btn btn-sm btn-light rounded-pill py-2 px-4 d-none d-lg-block">Login</a>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+      <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <video autoplay muted loop id="myVideo">
+              <source src="{% static 'video/video.mp4' %}" type="video/mp4" />
+            </video>
+            <div class="carousel-caption">
+              <div class="p-3" style="max-width: 900px">
+                <h4 class="text-white text-uppercase mb-4 animated zoomIn">
+                  Welcome to
+                </h4>
+                <h1 class="display-1 text-white mb-0 animated zoomIn">
+                  NuggetKrafters
+                </h1>
+                &nbsp;
+                <h4 class="text-white mb-4 animated zoomIn">
+                  The Ultimate Learning & Development Platform with Built-in
+                  Measurement
+                </h4>
+                <a href="{% url 'about-page' %}"
+                  class="btn btn-light rounded-pill more-btn">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Carousel End -->
+
+    <!-- Facts Start -->
+
+    <!-- Facts End -->
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="img-border">
+              <img class="img-fluid" src="{% static 'img/about.jpg' %}" alt />
+            </div>
+          </div>
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="h-100">
+              <h6 class="section-title bg-white text-start text-primary pe-3">
+                Why NuggetKrafters?
+              </h6>
+              <h2 class="display-6 mb-4">
+                NuggetKrafters <br />
+                elevates
+                <span class="text-primary">professional development </span>with:
+              </h2>
+              <p>
+                <i class="fas fa-check-circle text-primary me-2"></i>
+                <strong>Microlearning:</strong> Efficient, bite-sized modules
+                for optimal knowledge absorption.
+              </p>
+              <p class="mb-4">
+                <i class="fas fa-user-graduate text-primary me-2"></i>
+                <strong>Personalized Learning:</strong> Tailored content based
+                on learner data and preferences.
+              </p>
+              <p class="mb-4"></p>
+              <p class="mb-4">
+                <i class="fas fa-trophy text-primary me-2"></i>
+                <strong>Gamification:</strong> Motivational learning journey
+                with rewards.
+              </p>
+
+              <p class="mb-4">
+                <i class="fas fa-chart-line text-primary me-2"></i>
+                <strong>AI Insights:</strong> Comprehensive tracking and
+                performance measurement.
+              </p>
+
+              <a class="btn btn-primary rounded-pill py-3 px-5" href>Read
+                More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div
+          class="text-center mx-auto mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+          style="max-width: 600px">
+          <h6 class="section-title bg-white text-center text-primary px-3"></h6>
+          <h1 class="display-6 mb-4">
+            Power Up Your Workforce with Customized Learning Journeys
+          </h1>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <a
+              class="service-item d-block rounded text-center h-100 p-4"
+              href>
+              <br />
+              <br />
+              <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">Invest in Growth</h4>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <a
+              class="service-item d-block rounded text-center h-100 p-4"
+              href>
+              <!--<img
+                  class="img-fluid rounded mb-4"
+                  src="img/service-2.jpg"
+                  alt=""
+                />-->
+
+              <br />
+              <br />
+              <i class="fa fa-users-cog fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">Snackable Content</h4>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <a
+              class="service-item d-block rounded text-center h-150 p-4"
+              href>
+              <br />
+              <br />
+              <i class="fa fa-check fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">More than 150 Courses</h4>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Service End -->
+
+    <!-- Feature Start -->
+
+    <!-- Feature End -->
+
+    <!-- pricing Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div
+          class="text-center mx-auto mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+          style="max-width: 600px">
+          <h6 class="section-title bg-white text-center text-primary px-3">
+            Pricing Plan
+          </h6>
+          <h1 class="display-6 mb-8 align-center">
+            With affordable and flexible plans, you can craft your learning
+            journey however you need.
+          </h1>
+        </div>
+
+        <div class="container-fluid" style="background: #ccccff">
+          <div class="container p-5">
+            <div class="row">
+              <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card h-100 shadow-lg rounded">
+                  <div class="card-body">
+                    <div class="text-center p-3">
+                      <h5 class="card-title">Standard (Up to 500 Users)</h5>
+                    </div>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      Unlimited course uploads
+                    </li>
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      With 50 GB storage
+                    </li>
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      Basic customer support
+                    </li>
+                  </ul>
+                  <div class="card-body text-center">
+                    <button
+                      class="btn btn-outline-secondary btn-lg"
+                      style="border-radius: 30px">
+                      Select
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card h-100 shadow-lg rounded">
+                  <div class="card-body">
+                    <div class="text-center p-3">
+                      <h5 class="card-title">Deluxe (Up to 2500 Users)</h5>
+                    </div>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      Unlimited course uploads
+                    </li>
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      With 150 GB storage
+                    </li>
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      Priority customer support
+                    </li>
+                  </ul>
+                  <div class="card-body text-center">
+                    <button
+                      class="btn btn-outline-secondary btn-lg"
+                      style="border-radius: 30px">
+                      Select
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card h-100 shadow-lg rounded">
+                  <div class="card-body">
+                    <div class="text-center p-3">
+                      <h5 class="card-title">Premium (Up to 5000 Users)</h5>
+                    </div>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      Unlimited course uploads
+                    </li>
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      With 300 GB storage
+                    </li>
+                    <li class="list-group-item">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-check"
+                        viewBox="0 0 16 16">
+                        <path
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                      </svg>
+                      24/7 customer support
+                    </li>
+                  </ul>
+                  <div class="card-body text-center">
+                    <button
+                      class="btn btn-outline-secondary btn-lg"
+                      style="border-radius: 30px">
+                      Select
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pricing End -->
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div
+          class="text-center mx-auto mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+          style="max-width: 600px">
+          <h6 class="section-title bg-white text-center text-primary px-3">
+            Expert Opinion
+          </h6>
+          <h1 class="display-6 mb-4">What Our Expert Say!</h1>
+        </div>
+        <div data-wow-delay="0.1s">
+          <div class="testimonial-item bg-light rounded p-4">
+            <div class="d-flex align-items-center mb-4">
+              <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+        >
+          <path
+            d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 10 A 1 1 0 0 0 24 11 A 1 1 0 0 0 25 12 A 1 1 0 0 0 26 11 A 1 1 0 0 0 25 10 z M 21 11 A 1 1 0 0 0 20 12 A 1 1 0 0 0 21 13 A 1 1 0 0 0 22 12 A 1 1 0 0 0 21 11 z M 29 11 A 1 1 0 0 0 28 12 A 1 1 0 0 0 29 13 A 1 1 0 0 0 30 12 A 1 1 0 0 0 29 11 z M 18 14 A 1 1 0 0 0 17 15 A 1 1 0 0 0 18 16 A 1 1 0 0 0 19 15 A 1 1 0 0 0 18 14 z M 32 14 A 1 1 0 0 0 31 15 A 1 1 0 0 0 32 16 A 1 1 0 0 0 33 15 A 1 1 0 0 0 32 14 z M 17 18 A 1 1 0 0 0 16 19 A 1 1 0 0 0 17 20 A 1 1 0 0 0 18 19 A 1 1 0 0 0 17 18 z M 33 18 A 1 1 0 0 0 32 19 A 1 1 0 0 0 33 20 A 1 1 0 0 0 34 19 A 1 1 0 0 0 33 18 z M 18 22 A 1 1 0 0 0 17 23 A 1 1 0 0 0 18 24 A 1 1 0 0 0 19 23 A 1 1 0 0 0 18 22 z M 32 22 A 1 1 0 0 0 31 23 A 1 1 0 0 0 32 24 A 1 1 0 0 0 33 23 A 1 1 0 0 0 32 22 z M 21 25 A 1 1 0 0 0 20 26 A 1 1 0 0 0 21 27 A 1 1 0 0 0 22 26 A 1 1 0 0 0 21 25 z M 29 25 A 1 1 0 0 0 28 26 A 1 1 0 0 0 29 27 A 1 1 0 0 0 30 26 A 1 1 0 0 0 29 25 z M 25 26 A 1 1 0 0 0 24 27 A 1 1 0 0 0 25 28 A 1 1 0 0 0 26 27 A 1 1 0 0 0 25 26 z M 19 28 A 1 1 0 0 0 18 29 A 1 1 0 0 0 19 30 A 1 1 0 0 0 20 29 A 1 1 0 0 0 19 28 z M 31 28 A 1 1 0 0 0 30 29 A 1 1 0 0 0 31 30 A 1 1 0 0 0 32 29 A 1 1 0 0 0 31 28 z M 15.75 29.873047 C 15.4975 29.835547 15.229766 29.895547 15.009766 30.060547 L 15 30.050781 C 14.56 30.380781 14.459062 31.009219 14.789062 31.449219 C 14.989063 31.719219 15.289609 31.859375 15.599609 31.859375 C 15.799609 31.859375 16.009453 31.799922 16.189453 31.669922 C 16.629453 31.339922 16.730391 30.709531 16.400391 30.269531 C 16.240391 30.044531 16.0025 29.910547 15.75 29.873047 z M 34.25 29.873047 C 33.997375 29.910547 33.759609 30.044531 33.599609 30.269531 C 33.269609 30.719531 33.371547 31.339922 33.810547 31.669922 C 33.990547 31.799922 34.200391 31.858375 34.400391 31.859375 C 34.711391 31.859375 35.010937 31.721172 35.210938 31.451172 C 35.540937 31.010172 35.439234 30.380547 34.990234 30.060547 C 34.769734 29.895547 34.502625 29.835547 34.25 29.873047 z M 12.679688 32.576172 C 12.425938 32.610047 12.184531 32.740938 12.019531 32.960938 C 11.688531 33.399937 11.770938 34.030375 12.210938 34.359375 C 12.390937 34.500375 12.599359 34.568359 12.818359 34.568359 C 13.119359 34.568359 13.420375 34.429922 13.609375 34.169922 C 13.950375 33.729922 13.858922 33.109531 13.419922 32.769531 C 13.199922 32.604031 12.933437 32.542297 12.679688 32.576172 z M 37.320312 32.576172 C 37.066688 32.542422 36.799578 32.604531 36.580078 32.769531 C 36.140078 33.099531 36.050625 33.729922 36.390625 34.169922 C 36.580625 34.429922 36.879688 34.568359 37.179688 34.568359 C 37.389688 34.568359 37.608063 34.500375 37.789062 34.359375 C 38.228062 34.030375 38.308516 33.399938 37.978516 32.960938 C 37.813516 32.740938 37.573937 32.609922 37.320312 32.576172 z M 11 36 A 1 1 0 0 0 10 37 A 1 1 0 0 0 11 38 A 1 1 0 0 0 12 37 A 1 1 0 0 0 11 36 z M 39 36 A 1 1 0 0 0 38 37 A 1 1 0 0 0 39 38 A 1 1 0 0 0 40 37 A 1 1 0 0 0 39 36 z"
+          ></path>
+        </svg>
+              <div class="ms-4">
+                <h5 class="mb-1">Dr. Krishnan</h5>
+                <span>Nuveda, Founder</span>
+              </div>
+            </div>
+            <p class="mb-0">
+              NuggetKrafters offers a seamless solution for various enterprise
+              needs, including employee onboarding, sales team building,
+              customer service, cybersecurity, and project delivery. With over
+              150+ concise modules, it ensures learning retention and
+              application within the organization. Plus, it incorporates the
+              Kirkpatrick Model for measuring behavioural and business outcomes,
+              setting it apart from other providers globally
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial End -->
+
+    <!-- Footer Start -->
+    <div
+      class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn"
+      data-wow-delay="0.1s">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Address</h5>
+            <p class="mb-2">
+              <i class="fa fa-map-marker-alt me-3"></i>123 Anywhere St. Any
+              City, ST 12345
+            </p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>123-456-789</p>
+            <p class="mb-2">
+              <i class="fa fa-envelope me-3"></i>info@example.com
+            </p>
+            <div class="d-flex pt-2">
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-1"
+                href><i class="fab fa-twitter"></i></a>
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-1"
+                href><i class="fab fa-facebook-f"></i></a>
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-1"
+                href><i class="fab fa-youtube"></i></a>
+              <a
+                class="btn btn-square btn-outline-secondary rounded-circle me-0"
+                href><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Quick Links</h5>
+            <a class="btn btn-link" href>About Us</a>
+            <a class="btn btn-link" href>Contact Us</a>
+            <a class="btn btn-link" href>Our Services</a>
+            <a class="btn btn-link" href>Terms & Condition</a>
+            <a class="btn btn-link" href>Support</a>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-light mb-4">Newsletter</h5>
+            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+            <div class="position-relative mx-auto" style="max-width: 400px">
+              <input
+                class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5"
+                type="text"
+                placeholder="Your email" />
+              <button
+                type="button"
+                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
+                SignUp
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a href="#">NuggetKrafters</a>, All Right Reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a
+      href="#"
+      class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+        class="bi bi-arrow-up"></i></a>
+
+{% endblock %}

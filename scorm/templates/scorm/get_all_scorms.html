@@ -9,14 +9,11 @@
     {% for choice in form.scorms %}
     <li>
       <div
-        class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
-      >
+        class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
         {{ choice.tag }}
         <label
           for="{{ choice.id_for_label }}"
-          class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-          >{{ choice.choice_label }}</label
-        >
+          class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{ choice.choice_label }}</label>
       </div>
     </li>
     {% endfor %}

@@ -29,7 +29,7 @@ class ScormAsset(models.Model):
     scorm_file = models.FileField(upload_to="scorm_uploads_zipped/")
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - {self.scorm_id}"
 
 
 class ScormResponse(models.Model):
