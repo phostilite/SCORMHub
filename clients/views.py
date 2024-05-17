@@ -49,7 +49,9 @@ def create_client_view(request):
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{field}: {error}")
+                    error_message = f"{field}: {error}"
+                    messages.error(request, error_message)
+                    logger.error(error_message)
     else:
         form = ClientCreationForm()
     return render(request, "clients/create_client.html", {"form": form})
