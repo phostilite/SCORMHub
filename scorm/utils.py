@@ -75,7 +75,7 @@ def replace_placeholders(temp_wrapper_dir, client_specific_data):
         for file in files:
             if file == "configuration.js":
                 file_path = os.path.join(root, file)
-                placeholders = {"ID": client_specific_data["id"]}
+                placeholders = {"ID": client_specific_data["id"
                 replace_placeholders_in_file(file_path, placeholders)
             elif file == "imsmanifest.xml":
                 file_path = os.path.join(root, file)
@@ -83,33 +83,26 @@ def replace_placeholders(temp_wrapper_dir, client_specific_data):
                 replace_placeholders_in_file(file_path, placeholders)
 
 def create_modified_scorm_wrapper(client_specific_data, assignment):
-    """Create a modified SCORM wrapper with client-specific data and store it in the database."""
-
+    """
+    Create a modified SCORM wrapper with client-specific data and store it in the database.
+    The zip file will contain the files directly in the root directory.
+    """
     scorm_wrapper_path = os.path.join(settings.MEDIA_ROOT, "scorm_wrapper", "scorm-wrapper.zip")
+    temp_dir = tempfile.mkdtemp()
+    temp_wrapper_dir = os.path.join(temp_dir, "scorm_wrapper")
+    with zipfile.ZipFile(scorm_wrapper_path, "r") as zip_ref:
+        zip_ref.extractall(temp_wrapper_dir)
+    replace_placeholders(temp_wrapper_dir, client_specific_data)
+    archive_path = os.path.join(temp_dir, "modified_wrapper.zip")
+    with zipfile.ZipFile(archive_path, "w") as zip_ref:
+        for root, dirs, files in os.walk(temp_wrapper_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zip_ref.write(file_path, os.path.basename(file_path))  # Add files to the root of the zip
 
-    # Use a temporary directory to extract and modify the wrapper
-    with tempfile.TemporaryDirectory() as temp_dir:
-        temp_wrapper_dir = os.path.join(temp_dir, "scorm_wrapper")
-
-        # Extract the wrapper
-        with zipfile.ZipFile(scorm_wrapper_path, "r") as zip_ref:
-            zip_ref.extractall(temp_wrapper_dir)
-
-        # Replace placeholders and adjust file structure
-        replace_placeholders(temp_wrapper_dir, client_specific_data)
-
-        # Directly write files to the root of the new archive
-        archive_path = os.path.join(temp_dir, "modified_wrapper.zip")
-        with zipfile.ZipFile(archive_path, "w") as zip_ref:
-            for root, _, files in os.walk(temp_wrapper_dir):
-                # Remove the scorm_wrapper directory from the archive path
-                arcname_root = root[len(temp_wrapper_dir) + 1:] if root != temp_wrapper_dir else ""
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    zip_ref.write(file_path, os.path.join(arcname_root, file))  # Adjust the arcname
-
-        # Save to the assignment model
-        unique_filename = f"modified_wrapper_{assignment.client.id}.zip"
-        with open(archive_path, "rb") as file:
-            assignment.client_scorm_file.save(unique_filename, File(file), save=True)
+    # Create a unique filename using the client's id
+    unique_filename = f"modified_wrapper_{assignment.client.id}.zip"
+    with open(archive_path, "rb") as file:
+        assignment.client_scorm_file.save(unique_filename, File(file), save=True)
+    shutil.rmtree(temp_dir)
     return assignment
