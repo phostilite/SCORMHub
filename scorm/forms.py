@@ -1,21 +1,19 @@
 import os
 from django.core.files import File
 import logging
-
 from django import forms
+from django.conf import settings
 from .models import ScormAsset, ScormAssignment, ScormResponse
 from clients.models import Client
-from .utils import generate_client_scorm_file, encrypt_data, decrypt_data
+from .utils import encrypt_data, decrypt_data, create_modified_scorm_wrapper
 
 logger = logging.getLogger(__name__)
-
 
 class ScormUploadForm(forms.ModelForm):
     class Meta:
         model = ScormAsset
         fields = ["title", "description", "category", "duration", "scorm_file"]
         widgets = {"scorm_file": forms.FileInput()}
-
 
 class AssignSCORMForm(forms.ModelForm):
     scorms = forms.ModelMultipleChoiceField(
@@ -36,8 +34,8 @@ class AssignSCORMForm(forms.ModelForm):
         number_of_seats = self.cleaned_data["number_of_seats"]
         validity_start_date = self.cleaned_data["validity_start_date"]
         validity_end_date = self.cleaned_data["validity_end_date"]
-
         assignments = []
+
         for scorm in selected_scorms:
             assignment = ScormAssignment(
                 scorm_asset=scorm,
@@ -48,27 +46,20 @@ class AssignSCORMForm(forms.ModelForm):
             )
 
             response = ScormResponse.objects.get(asset=scorm)
-
             encrypted_id = encrypt_data(client.id, response.scorm)
             logger.info(f"Encrypted ID: {encrypted_id}")
-            client_specific_data = {"id": encrypted_id, "scorm_title": scorm.title}
-            client_scorm_file_path = generate_client_scorm_file(
-                scorm.scorm_file, client_specific_data
+            client_specific_data = {"id": encrypted_id, "scorm_title": scorm.title, "referring_url": client.domains}
+
+            # Modify the SCORM wrapper and save it in the ScormAssignment model
+            assignment = create_modified_scorm_wrapper(
+                client_specific_data,
+                assignment,
             )
-
-            # Log the decrypted ID for verification
-            decrypted_id = decrypt_data(encrypted_id)
-            logger.info(f"Decrypted ID: {decrypted_id}")
-
-            # Save the client-specific SCORM file in the ScormAsset model
-            with open(client_scorm_file_path, "rb") as client_scorm_file:
-                assignment.client_scorm_file.save(
-                    os.path.basename(client_scorm_file_path), File(client_scorm_file)
-                )
 
             if commit:
                 assignment.save()
                 scorm.save()  # Save the ScormAsset model after updating the scorm_file field
+
             assignments.append(assignment)
 
         return assignments

@@ -62,7 +62,7 @@ def validate_and_launch(request):
             * error (str): An error message if validation or launch URL generation fails.
 
     Error Codes:
-        * 400 Bad Request: Missing required data, invalid client identifier, invalid referring domain, invalid license.
+        * 400 Bad Request: MissLing required data, invalid client identifier, invalid referring domain, invalid license.
         * 500 Internal Server Error: Failed to generate launch URL.
     """
         

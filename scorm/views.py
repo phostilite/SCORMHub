@@ -70,7 +70,7 @@ def upload_scorm_view(request) -> HttpResponse:
                     headers=headers,
                     files=data,
                     verify=True,
-                    timeout=100,
+                    timeout=300,
                 )
 
                 response_data = None

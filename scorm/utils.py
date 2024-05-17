@@ -1,8 +1,11 @@
 import bsdiff4
 import os
 import tempfile
+import shutil
 import zipfile
 import logging
+from django.conf import settings
+from django.core.files import File
 
 from cryptography.fernet import Fernet
 
@@ -44,77 +47,68 @@ def decrypt_data(cipher_text) -> str:
     return plain_text.decode()
 
 
-def replace_placeholders(file_path, client_specific_data) -> None:
+def replace_placeholders(temp_wrapper_dir, client_specific_data):
     """
-    Replace placeholders in a file with client-specific data.
-
-    Args:
-        file_path (str): The path to the file.
-        client_specific_data (dict): A dictionary containing client-specific data.
-
-    Returns:
-        None
+    Replace placeholders in files within the extracted SCORM wrapper directory.
     """
-    if os.path.exists(file_path):
-        logger.info(f"Opening file: {file_path}")
-        with open(file_path, "r+") as file:
-            contents = file.read()
-            logger.info(
-                f"Before replacement:\n{contents}"
-            )  
-            if "configuration.js" in file_path:
-                logger.info("Replacing 'ID' in configuration.js")
-                contents = contents.replace("ID", client_specific_data["id"], 1)
-            elif "imsmanifest.xml" in file_path:
-                logger.info("Replacing '{{SCORM_TITLE}}' in imsmanifest.xml")
-                contents = contents.replace(
-                    "{{SCORM_TITLE}}", client_specific_data["scorm_title"]
-                )
-            logger.info(
-                f"After replacement:\n{contents}"
-            )  
-            file.seek(0)
-            file.write(contents)
-            file.truncate()
-    else:
-        logger.warning(f"The file {file_path} does not exist. Continuing execution.")
+    logger.info(f"Starting to replace placeholders in {temp_wrapper_dir}")
+    logger.info(f"Client specific data: {client_specific_data}")
 
+    def replace_placeholders_in_file(file_path, placeholders):
+        logger.info(f"Starting to replace placeholders in {file_path}")
+        if os.path.exists(file_path):
+            logger.info(f"Path exists: {file_path}")
+            with open(file_path, "r+") as file:
+                contents = file.read()
+                new_contents = contents
+                for placeholder, value in placeholders.items():
+                    if placeholder == "ID" and "configuration.js" in file_path:
+                        new_contents = new_contents.replace(placeholder, value, 1)
+                    else:
+                        new_contents = new_contents.replace(placeholder, value)
+                logger.info(f"New contents: {new_contents}")
+                file.seek(0)
+                file.write(new_contents)
+                file.truncate()
 
-def generate_client_scorm_file(original_scorm_file, client_specific_data) -> str:
+    for root, dirs, files in os.walk(temp_wrapper_dir):
+        for file in files:
+            if file == "configuration.js":
+                file_path = os.path.join(root, file)
+                placeholders = {"ID": client_specific_data["id"], "REFERRING_URL": client_specific_data["referring_url"]}
+                replace_placeholders_in_file(file_path, placeholders)
+            elif file == "imsmanifest.xml":
+                file_path = os.path.join(root, file)
+                placeholders = {"{{SCORM_TITLE}}": client_specific_data["scorm_title"]}
+                replace_placeholders_in_file(file_path, placeholders)
+
+def create_modified_scorm_wrapper(client_specific_data, assignment):
     """
-    Generate a client-specific SCORM file by replacing placeholders in the original SCORM file.
-
-    Args:
-        original_scorm_file (str): The path to the original SCORM file.
-        client_specific_data (dict): A dictionary containing client-specific data to replace the placeholders.
-
-    Returns:
-        str: The path to the generated client-specific SCORM file.
+    Create a modified SCORM wrapper with client-specific data and store it in the database.
     """
-    logger.info("Creating temporary directory")
+    scorm_wrapper_path = os.path.join(settings.MEDIA_ROOT, "scorm_wrapper", "scorm-wrapper.zip")
+
     temp_dir = tempfile.mkdtemp()
-    logger.info(f"Extracting {original_scorm_file.path} to {temp_dir}")
+    temp_wrapper_dir = os.path.join(temp_dir, "scorm_wrapper")
 
-    with zipfile.ZipFile(original_scorm_file.path, "r") as zip_ref:
-        zip_ref.extractall(temp_dir)
+    with zipfile.ZipFile(scorm_wrapper_path, "r") as zip_ref:
+        zip_ref.extractall(temp_wrapper_dir)
 
-    replace_placeholders(
-        os.path.join(temp_dir, "imsmanifest.xml"), client_specific_data
-    )
-    replace_placeholders(
-        os.path.join(temp_dir, "configuration.js"), client_specific_data
-    )
+    replace_placeholders(temp_wrapper_dir, client_specific_data)
 
-    client_scorm_file_path = tempfile.mktemp()
-    logger.info(f"Creating client SCORM file at: {client_scorm_file_path}")
-
-    with zipfile.ZipFile(client_scorm_file_path, "w") as zip_ref:
-        for root, dirs, files in os.walk(temp_dir):
+    archive_path = os.path.join(temp_dir, "modified_wrapper.zip")
+    with zipfile.ZipFile(archive_path, "w") as zip_ref:
+        for root, dirs, files in os.walk(temp_wrapper_dir):
             for file in files:
-                zip_ref.write(
-                    os.path.join(root, file),
-                    os.path.relpath(os.path.join(root, file), temp_dir),
-                )
+                file_path = os.path.join(root, file)
+                zip_ref.write(file_path, os.path.relpath(file_path, temp_wrapper_dir))
 
-    logger.info(f"Client SCORM file generated at: {client_scorm_file_path}")
-    return client_scorm_file_path
+    # Create a unique filename using the client's id
+    unique_filename = f"modified_wrapper_{assignment.client.id}.zip"
+
+    with open(archive_path, "rb") as file:
+        assignment.client_scorm_file.save(unique_filename, File(file), save=True)
+
+    shutil.rmtree(temp_dir)
+
+    return assignment
