@@ -11,7 +11,7 @@ def landing_page_view(request):
         HttpResponse: The HTTP response object.
 
     """
-    return render(request, "accounts/landing_page.html")
+    return render(request, "accounts/index.html")
 
 def about_page_view(request):
     """

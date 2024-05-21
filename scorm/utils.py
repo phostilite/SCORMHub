@@ -75,7 +75,7 @@ def replace_placeholders(temp_wrapper_dir, client_specific_data):
         for file in files:
             if file == "configuration.js":
                 file_path = os.path.join(root, file)
-                placeholders = {"ID": client_specific_data["id"
+                placeholders = {"ID": client_specific_data["id"]}
                 replace_placeholders_in_file(file_path, placeholders)
             elif file == "imsmanifest.xml":
                 file_path = os.path.join(root, file)

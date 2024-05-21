@@ -1,5 +1,6 @@
 {% extends './base.html' %}
 {% load static %}
+
 {% block content %}
     <!-- Navbar Start -->
     <nav
@@ -8,7 +9,7 @@
     >
       <a href="" class="navbar-brand m-0 p-0">
         <h1 class="fw-bold text-primary m-0"></h1>
-        <img src="{% static 'img/logo.svg' %}" alt="Logo" />
+        <img src="{% static 'frontend/img/logo.svg' %}" alt="Logo" />
       </a>
       <button
         type="button"
@@ -25,7 +26,7 @@
           <a href="#" class="nav-item nav-link">Solution</a>
           <a href="#" class="nav-item nav-link">Courses</a>
 
-          <a href="#" class="nav-item nav-link">Contact</a>
+          <a href="{% url 'contact-page' %}" class="nav-item nav-link">Contact</a>
         </div>
         <a
           href="https://htmlcodex.com/web-design-agency-html-template-pro"
@@ -42,7 +43,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img
-              src="{% static 'img/img2.jpg' %}"
+              src="{% static 'frontend/img/img2.jpg' %}"
               class="w-100"
               style="height: 800px"
               alt=""
@@ -63,9 +64,143 @@
     <!-- Facts Start -->
     <div class="container-xxl py-5">
       <div class="container">
+        <div
+          class="text-center mx-auto mb-5 wow fadeInUp"
+          data-wow-delay="0.1s"
+          style="max-width: 600px"
+        >
+          <h6 class="section-title bg-white text-center text-primary px-3"></h6>
+          <h3 class="display-6 mb-4">
+            Power Up Your Workforce with
+            <span class="text-primary"> Customized Learning Journeys</span>
+          </h3>
+        </div>
         <div class="row g-4">
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="fact-item bg-light rounded text-center h-100 p-5">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <a
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <br />
+              <br />
+              <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">Invest in Growth</h4>
+              <br />
+              <p class="power-para fs-5">
+                NuggetKrafters serves as your prime platform for transformative
+                learning and professional development.
+              </p>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <a
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <!--<img
+                  class="img-fluid rounded mb-4"
+                  src="img/solution-2.jpg"
+                  alt=""
+                />-->
+
+              <br />
+              <br />
+              <i class="fa fa-users-cog fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">Snackable Content</h4>
+              <br />
+              <p class="power-para fs-5">
+                Using microlearning, NuggetKrafters introduces a groundbreaking
+                approach to corporate training and development.
+              </p>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <a
+              class="solution-item d-block rounded text-center h-150 p-4"
+              href=""
+            >
+              <br />
+              <br />
+              <i class="fa fa-check fa-4x text-primary mb-4"></i>
+              <h4 class="mb-0">More than 150 Courses</h4>
+              <br />
+              <p class="power-para fs-5">
+                With our an extensive library, we not only have something for
+                everyone but also ensure that learning translates into behaviour
+                and business outcomes.
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Facts End -->
+
+    <!-- About Start -->
+    <section class="bg-success">
+      <div class="container-xxl py-5">
+        <div class="container">
+          <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div class="img-border">
+                <img class="img-fluid" src="{% static 'frontend/img/about.jpg' %}" alt="" />
+              </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+              <div class="h-100">
+                <h6 class="section-title text-info text-start pe-3">
+                  Why NuggetKrafters?
+                </h6>
+                <h2 class="display-6 mb-4 text-white">
+                  NuggetKrafters <br />
+                  elevates
+                  <span class="text-info">professional development </span>with:
+                </h2>
+                <p class="text-white">
+                  <i class="fas fa-check-circle me-2 text-info"></i>
+                  <strong class="text-light">Microlearning:</strong> Efficient,
+                  bite-sized modules for optimal knowledge absorption.
+                </p>
+                <p class="mb-4 text-white">
+                  <i class="fas fa-user-graduate me-2 text-info"></i>
+                  <strong class="text-light">Personalized Learning:</strong>
+                  Tailored content based on learner data and preferences.
+                </p>
+
+                <p class="mb-4 text-white">
+                  <i class="fas fa-trophy text-primary me-2 text-info"></i>
+                  <strong class="text-light">Gamification:</strong> Motivational
+                  learning journey with rewards.
+                </p>
+
+                <p class="mb-4 text-white">
+                  <i class="fas fa-chart-line text-primary me-2 text-info"></i>
+                  <strong class="text-light">AI Insights:</strong> Comprehensive
+                  tracking and performance measurement.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About End -->
+
+    <!-- solution Start -->
+
+    <!-- solution End -->
+
+    <!-- Feature Start -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <a
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <br />
+              <br />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -98,11 +233,23 @@
                   </g>
                 </g>
               </svg>
-              <h1 class="display-5 mb-0">Collaborate</h1>
-            </div>
+              <h4 class="mb-0">Collaborate</h4>
+              <br />
+            </a>
           </div>
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="fact-item bg-light rounded text-center h-100 p-5">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <a
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <!--<img
+                  class="img-fluid rounded mb-4"
+                  src="img/solution-2.jpg"
+                  alt=""
+                />-->
+
+              <br />
+              <br />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -135,12 +282,17 @@
                   </g>
                 </g>
               </svg>
-
-              <h1 class="display-5 mb-0">Grow</h1>
-            </div>
+              <h4 class="mb-0">Grow</h4>
+              <br />
+            </a>
           </div>
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div class="fact-item bg-light rounded text-center h-100 p-5">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <a
+              class="solution-item d-block rounded text-center h-150 p-4"
+              href=""
+            >
+              <br />
+              <br />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
@@ -155,126 +307,13 @@
                 ></path>
               </svg>
 
-              <h1 class="display-5 mb-0">Learn</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Facts End -->
-
-    <!-- About Start -->
-    <div class="container-xxl py-5">
-      <div class="container">
-        <div class="row g-5">
-          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="img-border">
-              <img class="img-fluid" src="{% static 'img/about.jpg' %}" alt="" />
-            </div>
-          </div>
-          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div class="h-100">
-              <h6 class="section-title bg-white text-start text-primary pe-3">
-                Why NuggetKrafters?
-              </h6>
-              <h2 class="display-6 mb-4">
-                NuggetKrafters <br />
-                elevates
-                <span class="text-primary">professional development </span>with:
-              </h2>
-              <p>
-                <i class="fas fa-check-circle text-primary me-2"></i>
-                <strong>Microlearning:</strong> Efficient, bite-sized modules
-                for optimal knowledge absorption.
-              </p>
-              <p class="mb-4">
-                <i class="fas fa-user-graduate text-primary me-2"></i>
-                <strong>Personalized Learning:</strong> Tailored content based
-                on learner data and preferences.
-              </p>
-              <p class="mb-4"></p>
-              <p class="mb-4">
-                <i class="fas fa-trophy text-primary me-2"></i>
-                <strong>Gamification:</strong> Motivational learning journey
-                with rewards.
-              </p>
-
-              <p class="mb-4">
-                <i class="fas fa-chart-line text-primary me-2"></i>
-                <strong>AI Insights:</strong> Comprehensive tracking and
-                performance measurement.
-              </p>
-
-              <a class="btn btn-primary rounded-pill py-3 px-5" href=""
-                >Read More</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- About End -->
-
-    <!-- Service Start -->
-    <div class="container-xxl py-5">
-      <div class="container">
-        <div
-          class="text-center mx-auto mb-5 wow fadeInUp"
-          data-wow-delay="0.1s"
-          style="max-width: 600px"
-        >
-          <h6 class="section-title bg-white text-center text-primary px-3"></h6>
-          <h1 class="display-6 mb-4">
-            Power Up Your Workforce with Customized Learning Journeys
-          </h1>
-        </div>
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <a
-              class="service-item d-block rounded text-center h-100 p-4"
-              href=""
-            >
+              <h4 class="mb-0">Learn</h4>
               <br />
-              <br />
-              <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
-              <h4 class="mb-0">Invest in Growth</h4>
-            </a>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-            <a
-              class="service-item d-block rounded text-center h-100 p-4"
-              href=""
-            >
-              <!--<img
-                  class="img-fluid rounded mb-4"
-                  src="img/service-2.jpg"
-                  alt=""
-                />-->
-
-              <br />
-              <br />
-              <i class="fa fa-users-cog fa-4x text-primary mb-4"></i>
-              <h4 class="mb-0">Snackable Content</h4>
-            </a>
-          </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-            <a
-              class="service-item d-block rounded text-center h-150 p-4"
-              href=""
-            >
-              <br />
-              <br />
-              <i class="fa fa-check fa-4x text-primary mb-4"></i>
-              <h4 class="mb-0">More than 150 Courses</h4>
             </a>
           </div>
         </div>
       </div>
     </div>
-    <!-- Service End -->
-
-    <!-- Feature Start -->
-
     <!-- Feature End -->
 
     <!-- pricing Start -->
@@ -323,11 +362,12 @@
           </div>
           <div class="col-lg-3 col-md-6">
             <h5 class="text-light mb-4">Quick Links</h5>
-            <a class="btn btn-link" href="">About Us</a>
-            <a class="btn btn-link" href="">Contact Us</a>
-            <a class="btn btn-link" href="">Our Services</a>
-            <a class="btn btn-link" href="">Terms & Condition</a>
-            <a class="btn btn-link" href="">Support</a>
+            <p><a class="text-secondary" href="{% url 'about-page' %}">About Us</a></p>
+            <p><a class="text-secondary" href="{% url 'contact-page' %}">Contact Us</a></p>
+
+            <p><a class="text-secondary" href="">Our solutions</a></p>
+            <p><a class="text-secondary" href="">Terms & Condition</a></p>
+            <p><a class="text-secondary" href="">Support</a></p>
           </div>
 
           <div class="col-lg-3 col-md-6">
@@ -368,4 +408,4 @@
       ><i class="bi bi-arrow-up"></i
     ></a>
 
-  {% endblock %}
+ {% endblock %}

@@ -1,26 +1,34 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NuggetKrafters</title>
-    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-     <link rel="preconnect" href="https://fonts.googleapis.com" />
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
- 
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
- 
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="{% static 'styles/styles2.css' %}" rel="stylesheet" />
-</head>
-<body>
-    {% block content %}
-    {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.jsintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NuggetKrafters</title>
+
+        <link href="{% static 'frontend/img/logo.svg' %}" rel="icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="{% static 'frontend/lib/animate/animate.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'frontend/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'frontend/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'frontend/css/bootstrap.css' %}" rel="stylesheet" />
+        <link href="{% static 'frontend/css/style.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'frontend/lib/wow/wow.min.js' %}"></script>
+        <script src="{% static 'frontend/lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'frontend/lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'frontend/lib/counterup/counterup.min.js' %}"></script>
+        <script src="{% static 'frontend/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'frontend/lib/lightbox/js/lightbox.min.js' %}"></script>
+        <script src="{% static 'frontend/js/main.js' %}"></script>
+    </body>
 </html>

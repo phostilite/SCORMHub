@@ -1,19 +1,24 @@
 {% extends './base.html' %}
 {% load static %}
+
 {% block content %}
+
+
     <!-- Navbar Start -->
     <nav
       class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn"
-      data-wow-delay="0.1s">
-      <a href class="navbar-brand m-0 p-0">
+      data-wow-delay="0.1s"
+    >
+      <a href="" class="navbar-brand m-0 p-0">
         <h1 class="fw-bold text-primary m-0"></h1>
-        <img src="{% static 'img/logo.svg' %}" alt="Logo" />
+        <img src="{% static 'frontend/img/logo.svg' %}" alt="Logo" />
       </a>
       <button
         type="button"
         class="navbar-toggler me-3 bg-success"
         data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse">
+        data-bs-target="#navbarCollapse"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -26,8 +31,15 @@
           <a href="{% url 'contact-page' %}" class="nav-item nav-link">Contact</a>
         </div>
         <a
-          href="https://htmlcodex.com/web-design-agency-html-template-pro"
-          class="btn btn-sm btn-light rounded-pill py-2 px-4 d-none d-lg-block">Login</a>
+          href="{% url 'admin-login' %}"
+          class="btn btn-sm btn-light rounded-pill py-2 px-4 d-none d-lg-block"
+          >Admin Login</a
+        >
+        <a
+          href="{% url 'client-login' %}"
+          class="btn btn-sm btn-light rounded-pill py-2 px-4 d-none d-lg-block"
+          >Client Login</a
+        >
       </div>
     </nav>
     <!-- Navbar End -->
@@ -41,7 +53,7 @@
               <source src="{% static 'video/video.mp4' %}" type="video/mp4" />
             </video>
             <div class="carousel-caption">
-              <div class="p-3" style="max-width: 900px">
+              <div class="p-3" style="max-width: 600px">
                 <h4 class="text-white text-uppercase mb-4 animated zoomIn">
                   Welcome to
                 </h4>
@@ -53,8 +65,9 @@
                   The Ultimate Learning & Development Platform with Built-in
                   Measurement
                 </h4>
-                <a href="{% url 'about-page' %}"
-                  class="btn btn-light rounded-pill more-btn">Learn More</a>
+                <a href="{% url 'about-page' %}" class="btn btn-light rounded-pill more-btn"
+                  >Learn More</a
+                >
               </div>
             </div>
           </div>
@@ -67,87 +80,44 @@
 
     <!-- Facts End -->
 
-    <!-- About Start -->
-    <div class="container-xxl py-5">
-      <div class="container">
-        <div class="row g-5">
-          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="img-border">
-              <img class="img-fluid" src="{% static 'img/about.jpg' %}" alt />
-            </div>
-          </div>
-          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div class="h-100">
-              <h6 class="section-title bg-white text-start text-primary pe-3">
-                Why NuggetKrafters?
-              </h6>
-              <h2 class="display-6 mb-4">
-                NuggetKrafters <br />
-                elevates
-                <span class="text-primary">professional development </span>with:
-              </h2>
-              <p>
-                <i class="fas fa-check-circle text-primary me-2"></i>
-                <strong>Microlearning:</strong> Efficient, bite-sized modules
-                for optimal knowledge absorption.
-              </p>
-              <p class="mb-4">
-                <i class="fas fa-user-graduate text-primary me-2"></i>
-                <strong>Personalized Learning:</strong> Tailored content based
-                on learner data and preferences.
-              </p>
-              <p class="mb-4"></p>
-              <p class="mb-4">
-                <i class="fas fa-trophy text-primary me-2"></i>
-                <strong>Gamification:</strong> Motivational learning journey
-                with rewards.
-              </p>
-
-              <p class="mb-4">
-                <i class="fas fa-chart-line text-primary me-2"></i>
-                <strong>AI Insights:</strong> Comprehensive tracking and
-                performance measurement.
-              </p>
-
-              <a class="btn btn-primary rounded-pill py-3 px-5" href>Read
-                More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- About End -->
-
-    <!-- Service Start -->
     <div class="container-xxl py-5">
       <div class="container">
         <div
           class="text-center mx-auto mb-5 wow fadeInUp"
           data-wow-delay="0.1s"
-          style="max-width: 600px">
+          style="max-width: 600px"
+        >
           <h6 class="section-title bg-white text-center text-primary px-3"></h6>
-          <h1 class="display-6 mb-4">
-            Power Up Your Workforce with Customized Learning Journeys
-          </h1>
+          <h3 class="display-6 mb-4">
+            Power Up Your Workforce with
+            <span class="text-primary"> Customized Learning Journeys</span>
+          </h3>
         </div>
         <div class="row g-4">
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <a
-              class="service-item d-block rounded text-center h-100 p-4"
-              href>
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
               <br />
               <br />
               <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
               <h4 class="mb-0">Invest in Growth</h4>
+              <br />
+              <p class="power-para fs-6">
+                NuggetKrafters serves as your prime platform for transformative
+                learning and professional development.
+              </p>
             </a>
           </div>
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <a
-              class="service-item d-block rounded text-center h-100 p-4"
-              href>
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
               <!--<img
                   class="img-fluid rounded mb-4"
-                  src="img/service-2.jpg"
+                  src="img/solution-2.jpg"
                   alt=""
                 />-->
 
@@ -155,45 +125,115 @@
               <br />
               <i class="fa fa-users-cog fa-4x text-primary mb-4"></i>
               <h4 class="mb-0">Snackable Content</h4>
+              <br />
+              <p class="power-para fs-6">
+                Using microlearning, NuggetKrafters introduces a groundbreaking
+                approach to corporate training and development.
+              </p>
             </a>
           </div>
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
             <a
-              class="service-item d-block rounded text-center h-150 p-4"
-              href>
+              class="solution-item d-block rounded text-center h-150 p-4"
+              href=""
+            >
               <br />
               <br />
               <i class="fa fa-check fa-4x text-primary mb-4"></i>
               <h4 class="mb-0">More than 150 Courses</h4>
+              <br />
+              <p class="power-para fs-6">
+                With our an extensive library, we not only have something for
+                everyone but also ensure that learning translates into behaviour
+                and business outcomes.
+              </p>
             </a>
           </div>
         </div>
       </div>
     </div>
-    <!-- Service End -->
+
+    <!-- About Start -->
+    <section class="bg-success">
+      <div class="container-xxl py-5">
+        <div class="container">
+          <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div class="img-border">
+                <img class="img-fluid" src="{% static 'frontend/img/about.jpg' %}" alt="" />
+              </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+              <div class="h-100">
+                <h6 class="section-title text-start pe-3" style="color: #ccccff;">
+                  Why NuggetKrafters?
+                </h6>
+                <h2 class="display-6 mb-4 text-white">
+                  NuggetKrafters <br />
+                  elevates
+                  <span style="color: #ccccff;">professional development </span>with:
+                </h2>
+                <p class="text-white">
+                  <i class="fas fa-check-circle me-2 text-info"></i>
+                  <strong class="text-light">Microlearning:</strong> Efficient,
+                  bite-sized modules for optimal knowledge absorption.
+                </p>
+                <p class="mb-4 text-white">
+                  <i class="fas fa-user-graduate me-2 text-info"></i>
+                  <strong class="text-light">Personalized Learning:</strong>
+                  Tailored content based on learner data and preferences.
+                </p>
+
+                <p class="mb-4 text-white">
+                  <i class="fas fa-trophy text-primary me-2 text-info"></i>
+                  <strong class="text-light">Gamification:</strong> Motivational
+                  learning journey with rewards.
+                </p>
+
+                <p class="mb-4 text-white">
+                  <i class="fas fa-chart-line text-primary me-2 text-info"></i>
+                  <strong class="text-light">AI Insights:</strong> Comprehensive
+                  tracking and performance measurement.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About End -->
+
+    <!-- solution Start -->
+
+    <!-- solution End -->
 
     <!-- Feature Start -->
 
     <!-- Feature End -->
 
     <!-- pricing Start -->
-    <div class="container-xxl py-5">
-      <div class="container">
-        <div
-          class="text-center mx-auto mb-5 wow fadeInUp"
-          data-wow-delay="0.1s"
-          style="max-width: 600px">
-          <h6 class="section-title bg-white text-center text-primary px-3">
-            Pricing Plan
-          </h6>
-          <h1 class="display-6 mb-8 align-center">
-            With affordable and flexible plans, you can craft your learning
-            journey however you need.
-          </h1>
-        </div>
 
-        <div class="container-fluid" style="background: #ccccff">
-          <div class="container p-5">
+    <section style="background-color: #ccccff;">
+      <div class="container-xxl py-5">
+        <div class="container">
+          <div
+            class="text-center mx-auto mb-5 wow fadeInUp"
+            data-wow-delay="0.1s"
+            style="max-width: 600px"
+          >
+            <br />
+            <h6 class="section-title text-center text-primary px-3">
+              Pricing Plan
+            </h6>
+            <h1 class="display-6 mb-4 fs-3">
+              <span class="text-primary"
+                >With affordable and flexible plans,</span
+              >
+              you can craft your learning journey however you need.
+            </h1>
+          </div>
+
+          <div class="container-fluid" style="background: #ccccff">
             <div class="row">
               <div class="col-lg-4 col-md-12 mb-4">
                 <div class="card h-100 shadow-lg rounded">
@@ -210,9 +250,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       Unlimited course uploads
                     </li>
@@ -223,9 +265,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       With 50 GB storage
                     </li>
@@ -236,9 +280,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       Basic customer support
                     </li>
@@ -246,7 +292,8 @@
                   <div class="card-body text-center">
                     <button
                       class="btn btn-outline-secondary btn-lg"
-                      style="border-radius: 30px">
+                      style="border-radius: 30px"
+                    >
                       Select
                     </button>
                   </div>
@@ -267,9 +314,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       Unlimited course uploads
                     </li>
@@ -280,9 +329,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       With 150 GB storage
                     </li>
@@ -293,9 +344,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       Priority customer support
                     </li>
@@ -303,7 +356,8 @@
                   <div class="card-body text-center">
                     <button
                       class="btn btn-outline-secondary btn-lg"
-                      style="border-radius: 30px">
+                      style="border-radius: 30px"
+                    >
                       Select
                     </button>
                   </div>
@@ -324,9 +378,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       Unlimited course uploads
                     </li>
@@ -337,9 +393,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       With 300 GB storage
                     </li>
@@ -350,9 +408,11 @@
                         height="16"
                         fill="currentColor"
                         class="bi bi-check"
-                        viewBox="0 0 16 16">
+                        viewBox="0 0 16 16"
+                      >
                         <path
-                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                          d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                        />
                       </svg>
                       24/7 customer support
                     </li>
@@ -360,7 +420,8 @@
                   <div class="card-body text-center">
                     <button
                       class="btn btn-outline-secondary btn-lg"
-                      style="border-radius: 30px">
+                      style="border-radius: 30px"
+                    >
                       Select
                     </button>
                   </div>
@@ -370,60 +431,181 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
     <!-- Pricing End -->
 
     <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
+    <br /><br />
+    <div class="container-xxl py-4">
       <div class="container">
         <div
           class="text-center mx-auto mb-5 wow fadeInUp"
           data-wow-delay="0.1s"
-          style="max-width: 600px">
+          style="max-width: 600px"
+        >
           <h6 class="section-title bg-white text-center text-primary px-3">
             Expert Opinion
           </h6>
-          <h1 class="display-6 mb-4">What Our Expert Say!</h1>
+          <h1 class="display-6 mb-4">
+            What Our <span class="text-primary"> Expert Say!</span>
+          </h1>
         </div>
         <div data-wow-delay="0.1s">
-          <div class="testimonial-item bg-light rounded p-4">
+          <div
+            class="testimonial-item rounded p-5"
+            style="background-color: #4b0082"
+          >
             <div class="d-flex align-items-center mb-4">
-              <svg
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          width="50"
-          height="50"
-          viewBox="0 0 50 50"
-        >
-          <path
-            d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 10 A 1 1 0 0 0 24 11 A 1 1 0 0 0 25 12 A 1 1 0 0 0 26 11 A 1 1 0 0 0 25 10 z M 21 11 A 1 1 0 0 0 20 12 A 1 1 0 0 0 21 13 A 1 1 0 0 0 22 12 A 1 1 0 0 0 21 11 z M 29 11 A 1 1 0 0 0 28 12 A 1 1 0 0 0 29 13 A 1 1 0 0 0 30 12 A 1 1 0 0 0 29 11 z M 18 14 A 1 1 0 0 0 17 15 A 1 1 0 0 0 18 16 A 1 1 0 0 0 19 15 A 1 1 0 0 0 18 14 z M 32 14 A 1 1 0 0 0 31 15 A 1 1 0 0 0 32 16 A 1 1 0 0 0 33 15 A 1 1 0 0 0 32 14 z M 17 18 A 1 1 0 0 0 16 19 A 1 1 0 0 0 17 20 A 1 1 0 0 0 18 19 A 1 1 0 0 0 17 18 z M 33 18 A 1 1 0 0 0 32 19 A 1 1 0 0 0 33 20 A 1 1 0 0 0 34 19 A 1 1 0 0 0 33 18 z M 18 22 A 1 1 0 0 0 17 23 A 1 1 0 0 0 18 24 A 1 1 0 0 0 19 23 A 1 1 0 0 0 18 22 z M 32 22 A 1 1 0 0 0 31 23 A 1 1 0 0 0 32 24 A 1 1 0 0 0 33 23 A 1 1 0 0 0 32 22 z M 21 25 A 1 1 0 0 0 20 26 A 1 1 0 0 0 21 27 A 1 1 0 0 0 22 26 A 1 1 0 0 0 21 25 z M 29 25 A 1 1 0 0 0 28 26 A 1 1 0 0 0 29 27 A 1 1 0 0 0 30 26 A 1 1 0 0 0 29 25 z M 25 26 A 1 1 0 0 0 24 27 A 1 1 0 0 0 25 28 A 1 1 0 0 0 26 27 A 1 1 0 0 0 25 26 z M 19 28 A 1 1 0 0 0 18 29 A 1 1 0 0 0 19 30 A 1 1 0 0 0 20 29 A 1 1 0 0 0 19 28 z M 31 28 A 1 1 0 0 0 30 29 A 1 1 0 0 0 31 30 A 1 1 0 0 0 32 29 A 1 1 0 0 0 31 28 z M 15.75 29.873047 C 15.4975 29.835547 15.229766 29.895547 15.009766 30.060547 L 15 30.050781 C 14.56 30.380781 14.459062 31.009219 14.789062 31.449219 C 14.989063 31.719219 15.289609 31.859375 15.599609 31.859375 C 15.799609 31.859375 16.009453 31.799922 16.189453 31.669922 C 16.629453 31.339922 16.730391 30.709531 16.400391 30.269531 C 16.240391 30.044531 16.0025 29.910547 15.75 29.873047 z M 34.25 29.873047 C 33.997375 29.910547 33.759609 30.044531 33.599609 30.269531 C 33.269609 30.719531 33.371547 31.339922 33.810547 31.669922 C 33.990547 31.799922 34.200391 31.858375 34.400391 31.859375 C 34.711391 31.859375 35.010937 31.721172 35.210938 31.451172 C 35.540937 31.010172 35.439234 30.380547 34.990234 30.060547 C 34.769734 29.895547 34.502625 29.835547 34.25 29.873047 z M 12.679688 32.576172 C 12.425938 32.610047 12.184531 32.740938 12.019531 32.960938 C 11.688531 33.399937 11.770938 34.030375 12.210938 34.359375 C 12.390937 34.500375 12.599359 34.568359 12.818359 34.568359 C 13.119359 34.568359 13.420375 34.429922 13.609375 34.169922 C 13.950375 33.729922 13.858922 33.109531 13.419922 32.769531 C 13.199922 32.604031 12.933437 32.542297 12.679688 32.576172 z M 37.320312 32.576172 C 37.066688 32.542422 36.799578 32.604531 36.580078 32.769531 C 36.140078 33.099531 36.050625 33.729922 36.390625 34.169922 C 36.580625 34.429922 36.879688 34.568359 37.179688 34.568359 C 37.389688 34.568359 37.608063 34.500375 37.789062 34.359375 C 38.228062 34.030375 38.308516 33.399938 37.978516 32.960938 C 37.813516 32.740938 37.573937 32.609922 37.320312 32.576172 z M 11 36 A 1 1 0 0 0 10 37 A 1 1 0 0 0 11 38 A 1 1 0 0 0 12 37 A 1 1 0 0 0 11 36 z M 39 36 A 1 1 0 0 0 38 37 A 1 1 0 0 0 39 38 A 1 1 0 0 0 40 37 A 1 1 0 0 0 39 36 z"
-          ></path>
-        </svg>
+              <div class="flex-shrink-0 rounded-circle border p-2">
+                <i class="fas fa-user-circle fs-1 text-white"></i>
+              </div>
               <div class="ms-4">
-                <h5 class="mb-1">Dr. Krishnan</h5>
-                <span>Nuveda, Founder</span>
+                <h5 class="mb-1 text-white">Dr. Krishnan</h5>
+                <span class="text-info">Nuveda, Founder</span>
               </div>
             </div>
-            <p class="mb-0">
+            <span class="mb-0 text-white fs-6">
               NuggetKrafters offers a seamless solution for various enterprise
               needs, including employee onboarding, sales team building,
-              customer service, cybersecurity, and project delivery. With over
+              customer solution, cybersecurity, and Courses delivery. With over
               150+ concise modules, it ensures learning retention and
               application within the organization. Plus, it incorporates the
               Kirkpatrick Model for measuring behavioural and business outcomes,
-              setting it apart from other providers globally
-            </p>
+              setting it apart from other providers globally.
+            </span>
           </div>
         </div>
       </div>
     </div>
     <!-- Testimonial End -->
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <a
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <br />
+              <br />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="64"
+                height="64"
+                viewBox="0,0,256,256"
+                style="fill: #4b0082"
+              >
+                <g
+                  fill="#4b0082"
+                  fill-rule="nonzero"
+                  stroke="none"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <g transform="scale(4,4)">
+                    <path
+                      d="M9,2c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM9,10c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM55,2c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM55,10c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM23,7v2h2v-2zM27,7v2h2v-2zM31,7v2h2v-2zM35,7v2h2v-2zM39,7v2h2v-2zM29,18v1.64648c0,0.443 -0.29675,0.81808 -0.71875,0.95508c-0.593,0.193 -1.16389,0.42998 -1.71289,0.70898c-0.395,0.201 -0.86959,0.14503 -1.18359,-0.16797l-1.16406,-1.16406l-4.24219,4.24414l1.16211,1.16211c0.313,0.313 0.37092,0.78859 0.16992,1.18359c-0.279,0.548 -0.51599,1.12184 -0.70898,1.71484c-0.136,0.421 -0.51208,0.7168 -0.95508,0.7168h-1.64648v6h1.64648c0.443,0 0.81808,0.29675 0.95508,0.71875c0.193,0.593 0.42998,1.16489 0.70898,1.71289c0.201,0.395 0.14503,0.86959 -0.16797,1.18359l-1.16406,1.16211l4.24414,4.24414l1.16211,-1.16406c0.313,-0.313 0.78859,-0.36897 1.18359,-0.16797c0.548,0.279 1.12089,0.51598 1.71289,0.70898c0.422,0.137 0.71875,0.51208 0.71875,0.95508v1.64648h6v-1.64648c0,-0.443 0.29675,-0.81808 0.71875,-0.95508c0.593,-0.193 1.16489,-0.42999 1.71289,-0.70898c0.395,-0.201 0.86959,-0.14503 1.18359,0.16797l1.16211,1.16406l4.24414,-4.24414l-1.16406,-1.16211c-0.313,-0.313 -0.36897,-0.78859 -0.16797,-1.18359c0.278,-0.548 0.51598,-1.11989 0.70898,-1.71289c0.137,-0.422 0.51208,-0.71875 0.95508,-0.71875h1.64648v-6h-1.64648c-0.443,0 -0.81808,-0.29675 -0.95508,-0.71875c-0.193,-0.593 -0.42999,-1.16389 -0.70898,-1.71289c-0.201,-0.395 -0.14503,-0.86959 0.16797,-1.18359l1.16406,-1.16406l-4.24414,-4.24219l-1.16211,1.16211c-0.313,0.313 -0.78859,0.37092 -1.18359,0.16992c-0.548,-0.279 -1.12184,-0.51599 -1.71484,-0.70898c-0.421,-0.136 -0.7168,-0.51208 -0.7168,-0.95508v-1.64648zM8,23v2h2v-2zM54,23v2h2v-2zM32,24c4.418,0 8,3.582 8,8c0,4.418 -3.582,8 -8,8c-4.418,0 -8,-3.582 -8,-8c0,-4.418 3.582,-8 8,-8zM8,27v2h2v-2zM54,27v2h2v-2zM30,28v8l6,-4zM8,31v2h2v-2zM54,31v2h2v-2zM8,35v2h2v-2zM54,35v2h2v-2zM8,39v2h2v-2zM54,39v2h2v-2zM9,45c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM9,53c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM55,45c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4zM55,53c-3.866,0 -7,3.134 -7,7v2h14v-2c0,-3.866 -3.134,-7 -7,-7zM23,55v2h2v-2zM27,55v2h2v-2zM31,55v2h2v-2zM35,55v2h2v-2zM39,55v2h2v-2z"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              <h4 class="mb-0">Collaborate</h4>
+              <br />
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <a
+              class="solution-item d-block rounded text-center h-100 p-4"
+              href=""
+            >
+              <!--<img
+                  class="img-fluid rounded mb-4"
+                  src="img/solution-2.jpg"
+                  alt=""
+                />-->
 
+              <br />
+              <br />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="50"
+                height="50"
+                viewBox="0,0,256,256"
+                style="fill: #4b0082"
+              >
+                <g
+                  fill="#4b0082"
+                  fill-rule="nonzero"
+                  stroke="none"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <g transform="scale(5.12,5.12)">
+                    <path
+                      d="M3.98438,2.98633c-0.55152,0.00862 -0.99193,0.46214 -0.98437,1.01367v43h31.40039h6.19922h6.40039c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-4.06836c0.04112,-0.22249 0.06836,-0.45269 0.06836,-0.69922v-20.65625c0,-0.271 0.229,-0.5 0.5,-0.5c0.271,0 0.5,0.229 0.5,0.5v8.35547c0,1.104 0.897,2 2,2c1.103,0 2,-0.896 2,-2v-11.5c0,-3.033 -2.467,-5.5 -5.5,-5.5h-10c-3.033,0 -5.5,2.467 -5.5,5.5v11.5c0,1.104 0.897,2 2,2c1.103,0 2,-0.896 2,-2v-8.5293c0,-0.271 0.229,-0.5 0.5,-0.5c0.271,0 0.5,0.229 0.5,0.5v20.83008c0,0.24653 0.02728,0.47673 0.06836,0.69922h-7.06836v-24h-6v24h-2v-17h-6v17h-2v-11h-4v-30c0.0037,-0.2703 -0.10218,-0.53059 -0.29351,-0.72155c-0.19133,-0.19097 -0.45182,-0.29634 -0.72212,-0.29212zM37.5,3c-3.033,0 -5.5,2.467 -5.5,5.5c0,3.033 2.467,5.5 5.5,5.5c3.033,0 5.5,-2.467 5.5,-5.5c0,-3.033 -2.467,-5.5 -5.5,-5.5zM37.5,33.5c0.276,0 0.5,0.224 0.5,0.5v10.5918c0.004,0.006 0.01163,0.00962 0.01563,0.01563c0.01345,0.13577 0.04346,0.26462 0.07422,0.39258h-1.18164c0.05397,-0.22333 0.0918,-0.45341 0.0918,-0.69922v-10.30078c0,-0.276 0.224,-0.5 0.5,-0.5z"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+              <h4 class="mb-0">Grow</h4>
+              <br />
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <a
+              class="solution-item d-block rounded text-center h-150 p-4"
+              href=""
+            >
+              <br />
+              <br />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="50"
+                height="50"
+                viewBox="0 0 50 50"
+                style="fill: #4b0082"
+              >
+                <path
+                  d="M 23 2 C 9 2 3 11.5 3 22 C 3 26.199219 4.300781 30.101563 6.5 33.300781 C 8.699219 36.5 10 40.300781 10 44.199219 L 10 49 L 32 49 L 32 44.699219 L 35.097656 44.902344 C 39.398438 45.300781 43 41.898438 43 37.597656 L 43 32.199219 L 47 30.199219 C 47.898438 29.699219 48.199219 28.597656 47.699219 27.699219 L 43 19.597656 C 41.898438 10.300781 37 2 23 2 Z M 27 8 L 29 8 L 29 10.101563 C 29.636719 10.230469 30.230469 10.484375 30.753906 10.832031 L 32.242188 9.34375 L 33.65625 10.757813 L 32.167969 12.246094 C 32.515625 12.769531 32.769531 13.363281 32.898438 14 L 35 14 L 35 16 L 32.898438 16 C 32.769531 16.636719 32.515625 17.230469 32.167969 17.753906 L 33.65625 19.242188 L 32.242188 20.65625 L 30.753906 19.167969 C 30.230469 19.515625 29.636719 19.769531 29 19.898438 L 29 22 L 27 22 L 27 19.898438 C 26.363281 19.769531 25.769531 19.515625 25.246094 19.167969 L 23.757813 20.65625 L 22.34375 19.242188 L 23.832031 17.753906 C 23.484375 17.230469 23.230469 16.636719 23.101563 16 L 21 16 L 21 14 L 23.101563 14 C 23.230469 13.363281 23.484375 12.769531 23.832031 12.246094 L 22.34375 10.757813 L 23.757813 9.34375 L 25.246094 10.832031 C 25.769531 10.484375 26.363281 10.230469 27 10.101563 Z M 28 12 C 26.34375 12 25 13.34375 25 15 C 25 16.65625 26.34375 18 28 18 C 29.65625 18 31 16.65625 31 15 C 31 13.34375 29.65625 12 28 12 Z M 15 16 L 17 16 L 17 18.101563 C 17.636719 18.230469 18.230469 18.484375 18.753906 18.832031 L 20.242188 17.34375 L 21.65625 18.757813 L 20.167969 20.246094 C 20.515625 20.769531 20.769531 21.363281 20.898438 22 L 23 22 L 23 24 L 20.898438 24 C 20.769531 24.636719 20.515625 25.230469 20.167969 25.753906 L 21.65625 27.242188 L 20.242188 28.65625 L 18.753906 27.167969 C 18.230469 27.515625 17.636719 27.769531 17 27.898438 L 17 30 L 15 30 L 15 27.898438 C 14.363281 27.769531 13.769531 27.515625 13.246094 27.167969 L 11.757813 28.65625 L 10.34375 27.242188 L 11.832031 25.753906 C 11.484375 25.230469 11.230469 24.636719 11.101563 24 L 9 24 L 9 22 L 11.101563 22 C 11.230469 21.363281 11.484375 20.769531 11.832031 20.246094 L 10.34375 18.757813 L 11.757813 17.34375 L 13.246094 18.832031 C 13.769531 18.484375 14.363281 18.230469 15 18.101563 Z M 16 20 C 14.34375 20 13 21.34375 13 23 C 13 24.65625 14.34375 26 16 26 C 17.65625 26 19 24.65625 19 23 C 19 21.34375 17.65625 20 16 20 Z"
+                ></path>
+              </svg>
+
+              <h4 class="mb-0">Learn</h4>
+              <br />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Footer Start -->
     <div
       class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn"
-      data-wow-delay="0.1s">
+      data-wow-delay="0.1s"
+    >
       <div class="container py-5">
         <div class="row g-5">
           <div class="col-lg-3 col-md-6">
@@ -439,25 +621,34 @@
             <div class="d-flex pt-2">
               <a
                 class="btn btn-square btn-outline-secondary rounded-circle me-1"
-                href><i class="fab fa-twitter"></i></a>
+                href=""
+                ><i class="fab fa-twitter"></i
+              ></a>
               <a
                 class="btn btn-square btn-outline-secondary rounded-circle me-1"
-                href><i class="fab fa-facebook-f"></i></a>
+                href=""
+                ><i class="fab fa-facebook-f"></i
+              ></a>
               <a
                 class="btn btn-square btn-outline-secondary rounded-circle me-1"
-                href><i class="fab fa-youtube"></i></a>
+                href=""
+                ><i class="fab fa-youtube"></i
+              ></a>
               <a
                 class="btn btn-square btn-outline-secondary rounded-circle me-0"
-                href><i class="fab fa-linkedin-in"></i></a>
+                href=""
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
             </div>
           </div>
           <div class="col-lg-3 col-md-6">
             <h5 class="text-light mb-4">Quick Links</h5>
-            <a class="btn btn-link" href>About Us</a>
-            <a class="btn btn-link" href>Contact Us</a>
-            <a class="btn btn-link" href>Our Services</a>
-            <a class="btn btn-link" href>Terms & Condition</a>
-            <a class="btn btn-link" href>Support</a>
+            <p><a class="text-secondary" href="{% url 'about-page' %}">About Us</a></p>
+            <p><a class="text-secondary" href="{% url 'contact-page' %}">Contact Us</a></p>
+
+            <p><a class="text-secondary" href="">Our solutions</a></p>
+            <p><a class="text-secondary" href="">Terms & Condition</a></p>
+            <p><a class="text-secondary" href="">Support</a></p>
           </div>
 
           <div class="col-lg-3 col-md-6">
@@ -467,10 +658,12 @@
               <input
                 class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5"
                 type="text"
-                placeholder="Your email" />
+                placeholder="Your email"
+              />
               <button
                 type="button"
-                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
+                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+              >
                 SignUp
               </button>
             </div>
@@ -492,7 +685,8 @@
     <!-- Back to Top -->
     <a
       href="#"
-      class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-        class="bi bi-arrow-up"></i></a>
+      class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
+      ><i class="bi bi-arrow-up"></i
+    ></a>
 
 {% endblock %}
