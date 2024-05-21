@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.apps import apps
+from cryptography.fernet import Fernet
 
 
 class Client(models.Model):

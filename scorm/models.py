@@ -26,6 +26,7 @@ class ScormAsset(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
     scorm_id = models.IntegerField(unique=True, null=True)
+    cover_photo = models.ImageField(upload_to="scorm_uploads/cover_photos/", blank=True, null=True, default="scorm_uploads/cover_photos/default.png")
     scorm_file = models.FileField(upload_to="scorm_uploads_zipped/")
 
     def __str__(self):
@@ -101,3 +102,28 @@ class UserScormMapping(models.Model):
 
     user = models.ForeignKey(ClientUser, on_delete=models.CASCADE)
     assignment = models.ForeignKey(ScormAssignment, on_delete=models.CASCADE)
+    
+class Course(models.Model):
+    title = models.CharField(max_length=200)
+    code = models.CharField(max_length=50, unique=True)
+    cover_photo = models.URLField()
+    short_description = models.CharField(max_length=250)
+    long_description = models.TextField()
+    scorm_assets = models.ManyToManyField(ScormAsset, blank=True)
+    syncing_status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+
+class Module(models.Model):
+    TYPE_CHOICES = [
+        ('scorm', 'SCORM'),
+    ]
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
+    type = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    title = models.CharField(max_length=200)
+    file = models.URLField()
+
+    def __str__(self):
+        return self.title

@@ -1,4 +1,7 @@
 import bsdiff4
+import base64
+import json
+import requests
 import os
 import tempfile
 import shutil

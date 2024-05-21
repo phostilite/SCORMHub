@@ -135,7 +135,7 @@
         <td class="px-6 py-4">{{ assignment.validity_end_date }}</td>
         <td class="px-6 py-4">{{ assignment.number_of_seats }}</td>
         <td class="px-6 py-4">None</td>
-        <td class="px-6 py-4">
+        <td class="px-6 py-4 flex">
           <a
             href="{% url 'download-scorm' client_id=client.id scorm_id=assignment.scorm_asset.id %}"
             title="Download">
@@ -149,6 +149,11 @@
               <path
                 d="M 24.90625 0.96875 C 24.863281 0.976563 24.820313 0.988281 24.78125 1 C 24.316406 1.105469 23.988281 1.523438 24 2 L 24 32.5625 L 17.71875 26.28125 C 17.476563 26.03125 17.121094 25.925781 16.78125 26 C 16.40625 26.066406 16.105469 26.339844 16 26.703125 C 15.894531 27.070313 16.003906 27.460938 16.28125 27.71875 L 24.28125 35.71875 L 25 36.40625 L 25.71875 35.71875 L 33.71875 27.71875 C 34.117188 27.320313 34.117188 26.679688 33.71875 26.28125 C 33.320313 25.882813 32.679688 25.882813 32.28125 26.28125 L 26 32.5625 L 26 2 C 26.011719 1.710938 25.894531 1.433594 25.6875 1.238281 C 25.476563 1.039063 25.191406 0.941406 24.90625 0.96875 Z M 7 16 L 7 50 L 43 50 L 43 16 L 33 16 C 32.640625 15.996094 32.304688 16.183594 32.121094 16.496094 C 31.941406 16.808594 31.941406 17.191406 32.121094 17.503906 C 32.304688 17.816406 32.640625 18.003906 33 18 L 41 18 L 41 48 L 9 48 L 9 18 L 17 18 C 17.359375 18.003906 17.695313 17.816406 17.878906 17.503906 C 18.058594 17.191406 18.058594 16.808594 17.878906 16.496094 C 17.695313 16.183594 17.359375 15.996094 17 16 Z"></path>
             </svg>
+          </a>
+          <a href="#" onclick="syncScorm({{ assignment.client.id }}, {{ assignment.scorm_asset.id }})">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 50 50">
+              <path d="M 25 2 C 12.308594 2 2 12.308594 2 25 C 2 37.691406 12.308594 48 25 48 C 37.691406 48 48 37.691406 48 25 C 48 12.308594 37.691406 2 25 2 Z M 25 4 C 36.609375 4 46 13.390625 46 25 C 46 36.609375 36.609375 46 25 46 C 13.390625 46 4 36.609375 4 25 C 4 13.390625 13.390625 4 25 4 Z M 25 11 C 17.28125 11 11 17.28125 11 25 L 13 25 C 13 18.359375 18.359375 13 25 13 C 28.574219 13 31.773438 14.5625 33.96875 17.03125 L 31 20 L 38 20 L 38 13 L 35.40625 15.59375 C 32.839844 12.757813 29.117188 11 25 11 Z M 37 25 C 37 31.640625 31.640625 37 25 37 C 21.417969 37 18.226563 35.449219 16.03125 32.96875 L 19 30 L 12 30 L 12 37 L 14.625 34.375 C 17.183594 37.214844 20.882813 39 25 39 C 32.71875 39 39 32.71875 39 25 Z"></path>
+              </svg>
           </a>
         </td>
       </tr>
@@ -348,5 +353,51 @@
       }
     }
   );
+</script>
+<script>
+ function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+function syncScorm(clientId, scormId) {
+  $.ajax({
+    url: '/api/get_scorm_data/' + clientId + '/' + scormId + '/',
+    type: 'GET',
+    dataType: 'json',
+    success: function(data) {
+      data.clientId = clientId;
+      data.scormId = scormId;
+      $.ajax({
+        url: '/api/sync_courses/',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        },
+        success: function(response) {
+          console.log('Course synced successfully:', response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.error('Failed to sync course:', textStatus, errorThrown);
+        }
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.error('AJAX request failed:', textStatus, errorThrown);
+    }
+  });
+}
 </script>
 {% endblock %}

@@ -26,4 +26,6 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
+    path('get_scorm_data/<int:client_id>/<int:scorm_id>/', views.get_scorm_data, name='get_scorm_data'),
+    path('sync_courses/', views.sync_courses, name='sync_courses'),
 ]
