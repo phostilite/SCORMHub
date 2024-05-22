@@ -160,10 +160,11 @@ def get_scorm_data(request, client_id, scorm_id):
         scorm = assignment.scorm_asset
         data = {
             "course_title": scorm.title,
+            "course_code": str(int(time.time())) + str(random.randint(100, 999)),  # Add course_code here
             "cover_photo": request.build_absolute_uri(scorm.cover_photo.url),
             "short_description": scorm.description,
             "long_description": '',
-            "modules": [{"type": 'scorm', "scorm_title": scorm.title, "file": request.build_absolute_uri(scorm.scorm_file.url)}]
+            "modules": [{"type": 'scorm', "scorm_title": scorm.title, "file": request.build_absolute_uri(assignment.client_scorm_file.url)}]
         }
         return JsonResponse(data, safe=False)
     except ScormAssignment.DoesNotExist:
@@ -179,6 +180,7 @@ def sync_courses(request):
     try:
         # Validate and sanitize the request data
         data = json.loads(request.body)
+        logger.info(f"Sync courses request data: {data}")
         client_id = data.get('clientId')
         scorm_id = data.get('scormId')
 
@@ -194,15 +196,14 @@ def sync_courses(request):
         if existing_course:
             course = existing_course
             course.title = data.get('course_title', course.title)
-            course.code = str(int(time.time())) + str(random.randint(100, 999))
+            course.code = data.get('course_code', course.code)  # Use course_code from data
             course.cover_photo = data.get('cover_photo', course.cover_photo)
             course.short_description = data.get('short_description', course.short_description)
             course.long_description = data.get('long_description', course.long_description)
         else:
-            unique_code = str(int(time.time())) + str(random.randint(100, 999))
             course = Course.objects.create(
                 title=data.get('course_title', ''),
-                code=unique_code,
+                code=data.get('course_code', ''),  # Use course_code from data
                 cover_photo=data.get('cover_photo', ''),
                 short_description=data.get('short_description', ''),
                 long_description=data.get('long_description', ''),
@@ -232,6 +233,13 @@ def sync_courses(request):
                 'Content-Type': 'application/json',
                 'Authorization': f'Basic {credentials}',
             }
+            logger.info(f"Sync courses request headers: {headers}")
+
+            # Remove clientId and scormId from data
+            data.pop('clientId', None)
+            data.pop('scormId', None)
+
+            logger.info(f"Sync courses request data: {data}")
             response = requests.post(lms_url, headers=headers, data=json.dumps(data))
 
             if response.status_code == 201:

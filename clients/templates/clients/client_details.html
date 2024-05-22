@@ -388,14 +388,17 @@ function syncScorm(clientId, scormId) {
         },
         success: function(response) {
           console.log('Course synced successfully:', response);
+          alert('Course synced successfully: ' + JSON.stringify(response));
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.error('Failed to sync course:', textStatus, errorThrown);
+          alert('Failed to sync course: ' + textStatus + ' ' + errorThrown);
         }
       });
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.error('AJAX request failed:', textStatus, errorThrown);
+      alert('AJAX request failed: ' + textStatus + ' ' + errorThrown);
     }
   });
 }

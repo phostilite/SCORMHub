@@ -104,7 +104,8 @@ def create_modified_scorm_wrapper(client_specific_data, assignment):
                 zip_ref.write(file_path, os.path.basename(file_path))  # Add files to the root of the zip
 
     # Create a unique filename using the client's id
-    unique_filename = f"modified_wrapper_{assignment.client.id}.zip"
+    scorm_title = client_specific_data["scorm_title"].replace(" ", "_")  
+    unique_filename = f"{scorm_title}_wrapper_{assignment.client.id}.zip"
     with open(archive_path, "rb") as file:
         assignment.client_scorm_file.save(unique_filename, File(file), save=True)
     shutil.rmtree(temp_dir)
