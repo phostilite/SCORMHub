@@ -242,7 +242,7 @@ def sync_courses(request):
             logger.info(f"Sync courses request data: {data}")
             response = requests.post(lms_url, headers=headers, data=json.dumps(data))
 
-            if response.status_code == 201:
+            if response.status_code in [200, 201]:
                 course.syncing_status = True
                 course.save()
                 return JsonResponse({"message": "Course created and synced successfully"}, status=201)
