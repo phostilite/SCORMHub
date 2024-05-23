@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
 
 def landing_page_view(request):
     """
@@ -11,7 +13,7 @@ def landing_page_view(request):
         HttpResponse: The HTTP response object.
 
     """
-    return render(request, "accounts/index.html")
+    return redirect(reverse('client-login'))
 
 def about_page_view(request):
     """

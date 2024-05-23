@@ -62,7 +62,7 @@ class ClientCreationForm(forms.ModelForm):
 class ClientUpdateForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ["first_name", "last_name", "email", "contact_phone", "company", "domains"]
+        fields = ["first_name", "last_name", "email", "contact_phone", "company", "domains", "lms_url", "lms_api_key", "lms_api_secret"]
 
     def save(self, commit=True):
         client = super().save(commit=False)
