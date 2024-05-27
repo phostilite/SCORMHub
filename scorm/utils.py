@@ -10,12 +10,7 @@ import logging
 from django.conf import settings
 from django.core.files import File
 
-from cryptography.fernet import Fernet
-
 logger = logging.getLogger(__name__)
-
-key = Fernet.generate_key()
-
 
 def encrypt_data(client_id, scorm) -> str:
     """
@@ -28,26 +23,24 @@ def encrypt_data(client_id, scorm) -> str:
     Returns:
         str: The encrypted data as a string.
     """
-    cipher_suite = Fernet(key)
     data = (str(client_id) + "-" + str(scorm)).encode()
-    cipher_text = cipher_suite.encrypt(data)
-    return cipher_text.decode()
+    base64_encoded_data = base64.b64encode(data)
+    return base64_encoded_data.decode()
 
 
-def decrypt_data(cipher_text) -> str:
+def decrypt_data(base64_encoded_data) -> str:
     """
-    Decrypts the given cipher text using the Fernet encryption algorithm.
+    Decrypts the given Base64 encoded data.
 
     Args:
-        cipher_text (str): The encrypted text to be decrypted.
+        base64_encoded_data (str): The Base64 encoded data to be decrypted.
 
     Returns:
         str: The decrypted plain text.
 
     """
-    cipher_suite = Fernet(key)
-    plain_text = cipher_suite.decrypt(cipher_text.encode())
-    return plain_text.decode()
+    base64_decoded_data = base64.b64decode(base64_encoded_data)
+    return base64_decoded_data.decode()
 
 
 def replace_placeholders(temp_wrapper_dir, client_specific_data):

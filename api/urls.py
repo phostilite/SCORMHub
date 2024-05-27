@@ -28,4 +28,5 @@ urlpatterns = [
     ),
     path('get_scorm_data/<int:client_id>/<int:scorm_id>/', views.get_scorm_data, name='get_scorm_data'),
     path('sync_courses/', views.sync_courses, name='sync_courses'),
+    path('user_scorm_status/', views.user_scorm_status, name='user_scorm_status'),
 ]

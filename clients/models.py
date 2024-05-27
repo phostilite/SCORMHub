@@ -71,3 +71,11 @@ class ClientUser(models.Model):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
     
+class UserScormStatus(models.Model):
+    client_user = models.ForeignKey(ClientUser, on_delete=models.CASCADE)
+    completion = models.CharField(max_length=255)
+    total_time = models.CharField(max_length=255)
+    score = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"UserScormStatus for {self.client_user}"

@@ -22,7 +22,7 @@ from urllib.parse import urlparse
 from django.conf import settings
 from drf_yasg.utils import swagger_auto_schema
 
-from clients.models import Client, ClientUser
+from clients.models import Client, ClientUser, UserScormStatus
 from scorm.models import ScormAsset, ScormAssignment, ScormResponse, UserScormMapping, Course, Module
 from scorm.utils import decrypt_data
 from api.serializers import (
@@ -40,18 +40,19 @@ from .utils import (
 
 logger = logging.getLogger(__name__)
 
-@swagger_auto_schema(
-    method="post",
-    request_body=ValidateAndLaunchRequest,
-    responses={
-        200: ValidateAndLaunchResponse(),
-        400: "Bad Request",
-        500: "Internal Server Error",
-    },
-)
-@api_view(["POST"])
-@authentication_classes([])
-@permission_classes([])
+# @swagger_auto_schema(
+#     method="post",
+#     request_body=ValidateAndLaunchRequest,
+#     responses={
+#         200: ValidateAndLaunchResponse(),
+#         400: "Bad Request",
+#         500: "Internal Server Error",
+#     },
+# )
+# @api_view(["POST"])
+# @authentication_classes([])
+# @permission_classes([])
+@csrf_exempt
 def validate_and_launch(request):
     """
     Validates a learner's access to a SCORM package, creates a user on CloudScorm if needed, and returns a launch URL.
@@ -78,10 +79,10 @@ def validate_and_launch(request):
     """
         
     # Get the encrypted ID, referring URL, and learner ID from the request data
-    encrypted_id = request.data.get("id")
-    referring_url = request.data.get("referringurl")
-    learner_id = request.data.get("learner_id")
-    learner_name = request.data.get("name")
+    encrypted_id = request.GET.get("id")
+    referring_url = request.GET.get("referringurl")
+    learner_id = request.GET.get("learner_id")
+    learner_name = request.GET.get("name")
     
     # Check if the required data is present
     if not all([encrypted_id, referring_url, learner_id, learner_name]):
@@ -255,4 +256,48 @@ def sync_courses(request):
 
     except Exception as e:
         logger.exception("An error occurred in sync_courses")
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+def user_scorm_status(request):
+    try:
+        logger.info("Processing user_scorm_status request")
+        id = request.GET.get('id')
+
+        decoded_id = base64.b64decode(id).decode()
+        client_id, scorm_id = decoded_id.split('-') 
+
+        learner_id = request.GET.get('learner_id')
+        referringurl = request.GET.get('referringurl')
+
+        client_user = ClientUser.objects.get(cloudscorm_user_id=learner_id)
+        client = client_user.client
+
+        if client.domains != referringurl:
+            logger.error("Invalid referring URL")
+            return JsonResponse({"error": "Invalid referring URL"}, status=400)
+
+        headers = {'Authorization': f'Bearer {settings.API_TOKEN1}'}
+        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={client_id}&scorm_id={scorm_id}"
+        response = requests.post(url, headers=headers)
+
+        if response.status_code == 200:
+            data = response.json()
+            
+            if not data.get('reports'):
+                logger.error("Reports data is empty")
+                return JsonResponse({"error": "Reports data is empty"}, status=400)
+
+            user_scorm_status, created = UserScormStatus.objects.update_or_create(
+                client_user=client_user,
+                defaults={'completion': data['reports']['completion'], 'total_time': data['reports']['total_time'], 'score': data['reports']['score']}
+            )
+
+            logger.info("User SCORM status updated successfully")
+            return JsonResponse({"message": "User SCORM status updated successfully"}, status=200)
+        else:
+            logger.error("Failed to get user SCORM status from API")
+            return JsonResponse({"error": "Failed to get user SCORM status from API"}, status=400)
+    except Exception as e:
+        logger.exception("An error occurred in user_scorm_status")
         return JsonResponse({"error": str(e)}, status=400)
