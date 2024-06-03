@@ -3,7 +3,6 @@ from django.conf import settings
 from django.apps import apps
 from cryptography.fernet import Fernet
 
-
 class Client(models.Model):
     """
     Represents a client in the system.
@@ -72,10 +71,16 @@ class ClientUser(models.Model):
         return f"{self.first_name} {self.last_name}"
     
 class UserScormStatus(models.Model):
-    client_user = models.ForeignKey(ClientUser, on_delete=models.CASCADE)
-    completion = models.CharField(max_length=255)
-    total_time = models.CharField(max_length=255)
-    score = models.CharField(max_length=255)
+    client_user = models.ForeignKey(ClientUser, on_delete=models.SET_NULL, null=True, blank=True)
+    _scorm_id = models.CharField(max_length=255, blank=True, null=True)
+    scorm_name = models.CharField(max_length=255, blank=True, null=True)
+    complete_status = models.CharField(max_length=255, blank=True, null=True)
+    satisfied_status = models.CharField(max_length=255, blank=True, null=True)
+    total_time = models.CharField(max_length=255, blank=True, null=True)
+    score = models.CharField(max_length=255, blank=True, null=True)
+    attempt = models.IntegerField(default=1)
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"UserScormStatus for {self.client_user}"
+        return f"UserScormStatus for {self.client_user} and {self.scorm_name}"

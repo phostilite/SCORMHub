@@ -4,6 +4,7 @@ import requests
 import base64
 import time
 import random
+from datetime import datetime
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -13,6 +14,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
 from rest_framework.decorators import (
     api_view,
     authentication_classes,
@@ -262,39 +264,87 @@ def sync_courses(request):
 def user_scorm_status(request):
     try:
         logger.info("Processing user_scorm_status request")
+
         id = request.GET.get('id')
+        logger.info(f"ID: {id}")
 
         decoded_id = base64.b64decode(id).decode()
-        client_id, scorm_id = decoded_id.split('-') 
+        client_id, scorm_id = decoded_id.split('-')
+        logger.info(f"Client ID: {client_id}, SCORM ID: {scorm_id}")
 
         learner_id = request.GET.get('learner_id')
-        referringurl = request.GET.get('referringurl')
+        logger.info(f"Learner ID: {learner_id}, Type: {type(learner_id)}")
 
+        referringurl = request.GET.get('referringurl')
+        logger.info(f"Referring URL: {referringurl}")
+
+        # scorm
+        scorm = ScormAsset.objects.get(scorm_id=scorm_id)
+        logger.info(f"SCORM: {scorm}, Title: {scorm.title}")
+
+        # learner
         client_user = ClientUser.objects.get(cloudscorm_user_id=learner_id)
+        logger.info(f"Client User: {client_user}, Name: {client_user.first_name}")
+
+        # client
         client = client_user.client
+        logger.info(f"Client: {client}, Name: {client.first_name}")
 
         if client.domains != referringurl:
             logger.error("Invalid referring URL")
             return JsonResponse({"error": "Invalid referring URL"}, status=400)
 
         headers = {'Authorization': f'Bearer {settings.API_TOKEN1}'}
-        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={client_id}&scorm_id={scorm_id}"
+        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={learner_id}&scorm_id={scorm_id}"
         response = requests.post(url, headers=headers)
 
         if response.status_code == 200:
             data = response.json()
-            
-            if not data.get('reports'):
+            reports = data.get('reports', [])
+            logger.info(f"Reports: {reports}")
+
+            if not reports:
                 logger.error("Reports data is empty")
                 return JsonResponse({"error": "Reports data is empty"}, status=400)
 
-            user_scorm_status, created = UserScormStatus.objects.update_or_create(
-                client_user=client_user,
-                defaults={'completion': data['reports']['completion'], 'total_time': data['reports']['total_time'], 'score': data['reports']['score']}
-            )
+            user_scorm_status = None
+            for report in reports:
+                user_scorm_status, created = UserScormStatus.objects.update_or_create(
+                    client_user=client_user,
+                    _scorm_id=str(report['id']),
+                    scorm_name=report['scormname'],
+                    attempt=int(report['attempt']),
+                    defaults={
+                        'complete_status': report['complete_status'],
+                        'satisfied_status': report['satisfied_status'],
+                        'total_time': report['total_time'],
+                        'score': report['score'],
+                        'created_at': datetime.strptime(report['created_at'], '%Y-%m-%d %H:%M:%S'),
+                        'updated_at': datetime.strptime(report['updated_at'], '%Y-%m-%d %H:%M:%S'),
+                    }
+                )
+                break
 
-            logger.info("User SCORM status updated successfully")
-            return JsonResponse({"message": "User SCORM status updated successfully"}, status=200)
+            if user_scorm_status:
+                logger.info("User SCORM status updated successfully")
+                response_data = {
+                    'learner_id': user_scorm_status.client_user.cloudscorm_user_id,
+                    'learner_name': user_scorm_status.client_user.first_name,
+                    'learner_email': user_scorm_status.client_user.email,
+                    'scorm_id': user_scorm_status._scorm_id,
+                    'scorm_name': user_scorm_status.scorm_name,
+                    'complete_status': user_scorm_status.complete_status,
+                    'satisfied_status': user_scorm_status.satisfied_status,
+                    'total_time': user_scorm_status.total_time,
+                    'score': user_scorm_status.score,
+                    'attempt': user_scorm_status.attempt,
+                    'created_at': user_scorm_status.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                    'updated_at': user_scorm_status.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                return JsonResponse(response_data, status=200)
+            else:
+                logger.error("No UserScormStatus object found for the given SCORM ID")
+                return JsonResponse({"error": "No UserScormStatus object found for the given SCORM ID"}, status=404)
         else:
             logger.error("Failed to get user SCORM status from API")
             return JsonResponse({"error": "Failed to get user SCORM status from API"}, status=400)
