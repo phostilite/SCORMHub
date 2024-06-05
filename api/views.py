@@ -155,14 +155,7 @@ def validate_and_launch(request):
 
     # Return the launch URL
     if launch_url:
-        script_response = f"""
-            <script>
-                // This script will be executed in the client's LMS
-                // Replace 'window.top' with the appropriate reference to the LMS window
-                window.top.location.href = '{launch_url}';
-            </script>
-        """
-        return HttpResponse(script_response, content_type='text/html')
+        return JsonResponse({'launch_url': launch_url})
     else:
         logger.info("Failed to generate launch URL")
         return JsonResponse({"error": "Failed to generate launch URL"}, status=500)
@@ -289,7 +282,7 @@ def user_scorm_status(request):
         logger.info(f"Referring URL: {referringurl}")
 
         # scorm
-        scorm = ScormAsset.objects.get(scorm_id=scorm_id)
+        scorm = ScormAsset.objects.get(id=scorm_id)
         logger.info(f"SCORM: {scorm}, Title: {scorm.title}")
 
         # learner
@@ -305,7 +298,7 @@ def user_scorm_status(request):
             return JsonResponse({"error": "Invalid referring URL"}, status=400)
 
         headers = {'Authorization': f'Bearer {settings.API_TOKEN1}'}
-        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={learner_id}&scorm_id={scorm_id}"
+        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={learner_id}&scorm_id={scorm.scorm_id}"
         response = requests.post(url, headers=headers)
 
         if response.status_code == 200:
