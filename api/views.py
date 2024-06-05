@@ -286,7 +286,7 @@ def user_scorm_status(request):
         logger.info(f"SCORM: {scorm}, Title: {scorm.title}")
 
         # learner
-        client_user = ClientUser.objects.get(cloudscorm_user_id=learner_id)
+        client_user = ClientUser.objects.get(learner_id=learner_id)
         logger.info(f"Client User: {client_user}, Name: {client_user.first_name}")
 
         # client
@@ -298,7 +298,7 @@ def user_scorm_status(request):
             return JsonResponse({"error": "Invalid referring URL"}, status=400)
 
         headers = {'Authorization': f'Bearer {settings.API_TOKEN1}'}
-        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={learner_id}&scorm_id={scorm.scorm_id}"
+        url = f"https://cloudscorm.cloudnuv.com/user-status?user_id={client_user.cloudscorm_user_id}&scorm_id={scorm.scorm_id}"
         response = requests.post(url, headers=headers)
 
         if response.status_code == 200:
