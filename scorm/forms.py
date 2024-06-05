@@ -45,8 +45,7 @@ class AssignSCORMForm(forms.ModelForm):
                 validity_end_date=validity_end_date,
             )
 
-            response = ScormResponse.objects.get(asset=scorm)
-            encrypted_id = encrypt_data(client.id, response.scorm)
+            encrypted_id = encrypt_data(client.id, assignment.scorm_asset.id)
             logger.info(f"Encrypted ID: {encrypted_id}")
             client_specific_data = {"id": encrypted_id, "scorm_title": scorm.title, "referring_url": client.domains}
 
