@@ -20,7 +20,7 @@ def check_assigned_scorm_validity(client_id, scorm_id) -> bool:
     # Get the ScormAssignment for the client and the scorm_id
     try:
         assignment = ScormAssignment.objects.get(
-            client=client, scorm_asset__scorm_id=scorm_id
+            client=client, scorm_asset__id=scorm_id
         )
     except ScormAssignment.DoesNotExist:
         return False
@@ -42,7 +42,7 @@ def check_assigned_scorm_seats_limit(client_id, scorm_id) -> bool:
     # Get the ScormAssignment for the client and the scorm_id
     try:
         assignment = ScormAssignment.objects.get(
-            client=client, scorm_asset__scorm_id=scorm_id
+            client=client, scorm_asset__id=scorm_id
         )
     except ScormAssignment.DoesNotExist:
         return False

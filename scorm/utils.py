@@ -59,7 +59,11 @@ def replace_placeholders(temp_wrapper_dir, client_specific_data):
                 new_contents = contents
                 for placeholder, value in placeholders.items():
                     if placeholder == "ID" and "configuration.js" in file_path:
-                        new_contents = new_contents.replace(placeholder, value, 1)
+                        parts = new_contents.split(placeholder)
+                        if len(parts) >= 4:
+                            parts[1] = value + parts[1]
+                            parts[3] = value + parts[3]
+                            new_contents = placeholder.join(parts)
                     else:
                         new_contents = new_contents.replace(placeholder, value)
                 logger.info(f"New contents: {new_contents}")
@@ -73,17 +77,13 @@ def replace_placeholders(temp_wrapper_dir, client_specific_data):
                 file_path = os.path.join(root, file)
                 placeholders = {"ID": client_specific_data["id"]}
                 replace_placeholders_in_file(file_path, placeholders)
-            elif file == "imsmanifest.xml":
-                file_path = os.path.join(root, file)
-                placeholders = {"{{SCORM_TITLE}}": client_specific_data["scorm_title"]}
-                replace_placeholders_in_file(file_path, placeholders)
 
 def create_modified_scorm_wrapper(client_specific_data, assignment):
     """
     Create a modified SCORM wrapper with client-specific data and store it in the database.
     The zip file will contain the files directly in the root directory.
     """
-    scorm_wrapper_path = os.path.join(settings.MEDIA_ROOT, "scorm_wrapper", "scorm-wrapper.zip")
+    scorm_wrapper_path = os.path.join(settings.MEDIA_ROOT, "scorm_wrapper", "scorm-wrapper-template.zip")
     temp_dir = tempfile.mkdtemp()
     temp_wrapper_dir = os.path.join(temp_dir, "scorm_wrapper")
     with zipfile.ZipFile(scorm_wrapper_path, "r") as zip_ref:

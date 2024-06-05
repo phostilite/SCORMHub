@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SCORM Package Test</title>
+</head>
+<body>
+    <h1>SCORM Package Test</h1>
+    <iframe id="scorm-package-frame" style="width: 100%; height: 600px;" frameborder="0"></iframe>
+
+    <script>
+        // Simulate the data that would be sent from the dispatch-loader.js
+        const encryptedId = 'MS0y';
+        const referringUrl = 'cloudscorm.nuvedalearning.com';
+        const learnerId = '2';
+        const learnerName = 'priyanshu';
+
+        // Construct the URL to the validate_and_launch view
+        const validateAndLaunchUrl = `/api/validate-and-launch/?id=${encryptedId}&referringurl=${encodeURIComponent(referringUrl)}&learner_id=${learnerId}&name=${learnerName}`;
+
+        // Fetch the validate_and_launch view to get the launch URL
+        fetch(validateAndLaunchUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Check if the response contains the launch_url
+                if (data.launch_url) {
+                    // Load the launch URL into the iframe
+                    const scormPackageFrame = document.getElementById('scorm-package-frame');
+                    scormPackageFrame.src = data.launch_url;
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>

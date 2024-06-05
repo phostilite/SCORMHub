@@ -102,6 +102,7 @@ class UserScormMapping(models.Model):
 
     user = models.ForeignKey(ClientUser, on_delete=models.CASCADE)
     assignment = models.ForeignKey(ScormAssignment, on_delete=models.CASCADE)
+    launch_url = models.URLField(blank=True, null=True)
     
 class Course(models.Model):
     title = models.CharField(max_length=200)

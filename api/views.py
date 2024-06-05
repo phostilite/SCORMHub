@@ -13,6 +13,7 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from rest_framework.decorators import (
@@ -39,6 +40,8 @@ from .utils import (
     construct_launch_url,
     check_assigned_scorm_seats_limit,
 )
+from django.utils.deprecation import MiddlewareMixin
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 logger = logging.getLogger(__name__)
 
@@ -138,7 +141,7 @@ def validate_and_launch(request):
         client_user.cloudscorm_user_id = cloudscorm_user_data["user_id"]
         client_user.save()
         
-    scorm_asset = get_object_or_404(ScormAsset, scorm_id=scorm_id)
+    scorm_asset = get_object_or_404(ScormAsset, id=scorm_id)
     assignment = get_object_or_404(ScormAssignment, scorm_asset=scorm_asset)
 
     # Create a UserScormMapping  
@@ -148,11 +151,18 @@ def validate_and_launch(request):
     )
 
     # Construct the launch URL
-    launch_url = construct_launch_url(scorm_id, client_user.cloudscorm_user_id)
+    launch_url = construct_launch_url(scorm_asset.scorm_id, client_user.cloudscorm_user_id)
 
     # Return the launch URL
     if launch_url:
-        return JsonResponse({"launch_url": launch_url, "cloudscorm_user_id": client_user.cloudscorm_user_id})
+        script_response = f"""
+            <script>
+                // This script will be executed in the client's LMS
+                // Replace 'window.top' with the appropriate reference to the LMS window
+                window.top.location.href = '{launch_url}';
+            </script>
+        """
+        return HttpResponse(script_response, content_type='text/html')
     else:
         logger.info("Failed to generate launch URL")
         return JsonResponse({"error": "Failed to generate launch URL"}, status=500)
@@ -351,3 +361,4 @@ def user_scorm_status(request):
     except Exception as e:
         logger.exception("An error occurred in user_scorm_status")
         return JsonResponse({"error": str(e)}, status=400)
+    
